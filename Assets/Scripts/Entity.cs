@@ -31,6 +31,8 @@ public class Entity : MonoBehaviour
     public int facingDir { get; private set; } = 1;
     protected bool facingRight = true;
 
+    public System.Action onFlipped;
+
     protected  virtual void Awake()
     {
 
@@ -56,7 +58,7 @@ public class Entity : MonoBehaviour
         fX.StartCoroutine("FlashFX");
         StartCoroutine("HitKnockback");
 
-        Debug.Log(gameObject.name + "¹Ò²ÊÁË£¡");
+        Debug.Log(gameObject.name + "ï¿½Ò²ï¿½ï¿½Ë£ï¿½");
     }
 
     protected virtual IEnumerator HitKnockback()
@@ -87,7 +89,7 @@ public class Entity : MonoBehaviour
         FlipController(_xVelocity);
     }
     #endregion
-    //Åö×²¼ì²â
+    //ï¿½ï¿½×²ï¿½ï¿½ï¿½
     #region Collision
     public virtual bool IsGroundDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsground);
     public virtual bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsground);
@@ -98,13 +100,16 @@ public class Entity : MonoBehaviour
         Gizmos.DrawWireSphere(attackCheck.position, attackCheckRadius);
     }
     #endregion 
-    //·­×ª
+    //ï¿½ï¿½×ª
     #region Flip
     public virtual void Flip()
     {
         facingDir = facingDir * -1;
         facingRight = !facingRight;
         transform.Rotate(0, 180, 0);
+
+        if (onFlipped != null)
+            onFlipped();
     }
 
     public virtual void FlipController(float _x)
