@@ -58,7 +58,7 @@ public class Entity : MonoBehaviour
         fX.StartCoroutine("FlashFX");
         StartCoroutine("HitKnockback");
 
-        Debug.Log(gameObject.name + "�Ҳ��ˣ�");
+        Debug.Log(gameObject.name + "挂彩了！");
     }
 
     protected virtual IEnumerator HitKnockback()
@@ -89,7 +89,7 @@ public class Entity : MonoBehaviour
         FlipController(_xVelocity);
     }
     #endregion
-    //��ײ���
+    //碰撞检测
     #region Collision
     public virtual bool IsGroundDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsground);
     public virtual bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsground);
@@ -100,7 +100,7 @@ public class Entity : MonoBehaviour
         Gizmos.DrawWireSphere(attackCheck.position, attackCheckRadius);
     }
     #endregion 
-    //��ת
+    //翻转
     #region Flip
     public virtual void Flip()
     {

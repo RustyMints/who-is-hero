@@ -22,19 +22,19 @@ public class Skill : MonoBehaviour
     {
         if(cooldowmTimer < 0)
         {
-            //Ê¹ÓÃ¼¼ÄÜ
+            //ä½¿ç”¨æŠ€èƒ½
             UseSkill();
             cooldowmTimer = cooldown;
             return true;
         }
 
-        Debug.Log("¼¼ÄÜÀäÈ´ÖÐ");
+        Debug.Log("æŠ€èƒ½æ­£åœ¨å†·å´");
         return false;
     }
 
     public virtual void UseSkill()
     {
-        //×öÒ»Ð©ÌØ¶¨µÄÊÂÇé
+        //åšä¸€äº›ç‰¹å®šçš„äº‹æƒ…
     }
 
     protected virtual Transform FindClosestEnemy(Transform _checkTransform)

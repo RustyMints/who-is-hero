@@ -27,10 +27,10 @@ public class SkillManager : MonoBehaviour
         // [修复] 初始化player变量
         player = PlayerManager.instance.player;
         // [修复结束]
-        dash = GetComponent<Dash_Skill>(); //���
-        clone = GetComponent<Clone_Skill>(); //���ܣ���̿�¡
-        sword = GetComponent<Sword_Skill>(); //�ӽ�
-        blackhole = GetComponent<Blackhole_Skill>();//�ڶ�
-        crystal = GetComponent<Crystal_Skill>();//ˮ��
+        dash = GetComponent<Dash_Skill>(); //冲刺
+        clone = GetComponent<Clone_Skill>(); //克隆，生成克隆
+        sword = GetComponent<Sword_Skill>(); //刀剑
+        blackhole = GetComponent<Blackhole_Skill>(); //黑洞
+        crystal = GetComponent<Crystal_Skill>(); //水晶
     }
 }
