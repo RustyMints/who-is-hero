@@ -1,0 +1,42 @@
+# Unity generated files
+Library/
+Temp/
+obj/
+*.sln
+*.csproj
+*.pidb
+*.userprefs
+*.unityproj
+*.suo
+*.tmp
+*.swp
+*.zip
+*.rar
+
+# Visual Studio generated files
+.vs/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# UOS files
+UOSLauncherEncrypt/
+
+# Logs
+Logs/
+
+# Package files
+Packages/
+
+# User settings
+UserSettings/
+
+# Build files
+Builds/
+
+# Backup files
+*.backup
+
+# Plastic SCM files
+.plastic/
