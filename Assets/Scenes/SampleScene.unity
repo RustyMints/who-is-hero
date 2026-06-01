@@ -612,8 +612,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f132ffc80f59c542ae32a5335ad6150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashDuration: 0.15
+  flashDuration: 0.2
   hitMat: {fileID: 2100000, guid: 1b17ce9ea3722b0499e5b3c8fa43df82, type: 2}
+  chillColor:
+  - {r: 0.19433957, g: 0.58911335, b: 1, a: 1}
+  - {r: 0.19607843, g: 0.5882353, b: 1, a: 1}
+  igniteColor:
+  - {r: 0.9647059, g: 0.26352182, b: 0.2196078, a: 1}
+  - {r: 0.93962264, g: 0.7046864, b: 0.61518687, a: 1}
+  shockColor:
+  - {r: 0.9529412, g: 0.972549, b: 0.63529414, a: 1}
+  - {r: 0.95706296, g: 1, b: 0.26226407, a: 1}
 --- !u!114 &155855191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,10 +669,10 @@ MonoBehaviour:
     baseValue: 1
     modifiers: 
   fireDamage:
-    baseValue: 12
+    baseValue: 0
     modifiers: 
   iceDamage:
-    baseValue: 4
+    baseValue: 2
     modifiers: 
   lightingDamage:
     baseValue: 0
@@ -671,6 +680,7 @@ MonoBehaviour:
   isIgnited: 0
   isChilld: 0
   isShocked: 0
+  ailmentsDuration: 4
   currentHealth: 0
 --- !u!1 &156433964
 GameObject:
@@ -13304,6 +13314,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashDuration: 0.2
   hitMat: {fileID: 2100000, guid: 1b17ce9ea3722b0499e5b3c8fa43df82, type: 2}
+  chillColor:
+  - {r: 0.19433957, g: 0.58911335, b: 1, a: 1}
+  - {r: 0.19607843, g: 0.5882353, b: 1, a: 1}
+  igniteColor:
+  - {r: 0.9647059, g: 0.26352182, b: 0.2196078, a: 1}
+  - {r: 0.93962264, g: 0.7046864, b: 0.61518687, a: 1}
+  shockColor:
+  - {r: 0.9529412, g: 0.972549, b: 0.63529414, a: 1}
+  - {r: 0.95706296, g: 1, b: 0.26226407, a: 1}
 --- !u!114 &1049826437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13350,17 +13369,18 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   fireDamage:
-    baseValue: 5
+    baseValue: 0
     modifiers: 
   iceDamage:
-    baseValue: 5
+    baseValue: 0
     modifiers: 
   lightingDamage:
-    baseValue: 5
+    baseValue: 0
     modifiers: 
   isIgnited: 0
   isChilld: 0
   isShocked: 0
+  ailmentsDuration: 4
   currentHealth: 0
 --- !u!70 &1049826438
 CapsuleCollider2D:

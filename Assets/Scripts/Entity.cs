@@ -38,6 +38,16 @@ public class Entity : MonoBehaviour
 
     }
 
+    public virtual void SlowEntityBy(float _slowPercentage, float _slowDruration)
+    {
+
+    }
+
+    protected virtual void ReturnDefaultSpeed()
+    {
+        anim.speed = 1;
+    }
+
     protected virtual void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();

@@ -31,7 +31,7 @@ public class CharacterStarts : MonoBehaviour
     public bool isChilld;  //减少20%的伤害
     public bool isShocked; //降低20%的精准度
 
-
+    [SerializeField] private float ailmentsDuration = 4;
     private float ignitedTimer;
     private float chilledTimer;
     private float shockedTimer;
@@ -174,20 +174,27 @@ public class CharacterStarts : MonoBehaviour
         if (_ignite)
         {
             isIgnited = _ignite;
-            ignitedTimer = 2;
+            ignitedTimer = ailmentsDuration;
 
-            fx.IgniteFxFor(2);
+            fx.IgniteFxFor(ailmentsDuration);
         }
         if (_chill)
         {
-            chilledTimer = 2;
+            chilledTimer = ailmentsDuration;
             isChilld = _chill;
+
+            float slowPercentage = 0.2f;
+
+            GetComponent<Entity>().SlowEntityBy(slowPercentage, ailmentsDuration);
+            fx.ChillFxFor(ailmentsDuration);
         }
 
         if (_shock)
         {
-            shockedTimer = 2;
+            shockedTimer = ailmentsDuration;
             isShocked = _shock;
+
+            fx.ShockFxFor(ailmentsDuration);
         }
         
     }
@@ -266,4 +273,6 @@ public class CharacterStarts : MonoBehaviour
     {
         return maxHealth.GetValue() + vitality.GetValue() * 5;
     }
+
+    
 }
