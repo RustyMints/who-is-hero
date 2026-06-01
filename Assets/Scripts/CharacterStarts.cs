@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CharacterStarts : MonoBehaviour
 {
+    private EntityFX fx;
+
     [Header("Major stats")]
     public Stat strength; //
     public Stat agility; //
@@ -48,6 +50,8 @@ public class CharacterStarts : MonoBehaviour
     {
         critPower.SetDefaultValue(150);
         currentHealth = GetMaxHealthValue();
+
+        fx = GetComponent<EntityFX>();
 
         Debug.Log("character stats called");
 
@@ -171,6 +175,8 @@ public class CharacterStarts : MonoBehaviour
         {
             isIgnited = _ignite;
             ignitedTimer = 2;
+
+            fx.IgniteFxFor(2);
         }
         if (_chill)
         {
@@ -258,6 +264,6 @@ public class CharacterStarts : MonoBehaviour
 
     public int GetMaxHealthValue()
     {
-        return maxHealth.GetValue() + vitality.GetValue();
+        return maxHealth.GetValue() + vitality.GetValue() * 5;
     }
 }
