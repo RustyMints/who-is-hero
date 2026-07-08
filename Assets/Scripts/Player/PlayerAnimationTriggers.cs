@@ -21,10 +21,19 @@ public class PlayerAnimationTriggers : MonoBehaviour
                 EnemyStats _target = hit.GetComponent<EnemyStats>();
 
                 player.starts.DoDamage(_target);
-                
-                
+
+                //获得库存武器，调用物品效果
+                ItemData_Equipment weaponData = Inventory.instance.GetEquipment(EquipmentType.Weapon);
+
+                if (weaponData != null)
+                    weaponData.Effect(_target.transform);
             }
         }
+    }
+
+    private void WeaponEffect()
+    {
+        
     }
    
     private void ThrowSword()

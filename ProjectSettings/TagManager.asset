@@ -14,7 +14,7 @@ TagManager:
   - Player
   - Enemy
   - Sword
-  - 
+  - item
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 2692334811
+    locked: 0
+  - name: Item
+    uniqueID: 3299051571
     locked: 0
   - name: Enemy
     uniqueID: 3280339393

@@ -23,6 +23,7 @@ public class Clone_Skill : Skill
     // [修复] 添加可选的_closeEnemy参数，避免25距离限制问题
     public void CreateClone(Transform _clonePosition,Vector3 _offset, Transform _closeEnemy = null)
     {
+
         if (crystalInseadOfClone)
         {
             SkillManager.instance.crystal.CreateCrystal();
@@ -34,7 +35,7 @@ public class Clone_Skill : Skill
         // [修复] 当提供_closeEnemy时直接使用，否则才调用FindClosestEnemy
         Transform enemy = _closeEnemy != null ? _closeEnemy : FindClosestEnemy(newClone.transform);
         newClone.GetComponent<Clone_Skill_controller>().
-            SetupClone(_clonePosition,cloneDuration,canAttack,_offset,enemy,canDuplicateClone,chanceToDuplicate);
+            SetupClone(_clonePosition,cloneDuration,canAttack,_offset,enemy,canDuplicateClone,chanceToDuplicate,player);
     }
     // [修复结束]
 
