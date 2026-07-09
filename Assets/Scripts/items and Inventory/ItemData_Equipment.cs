@@ -14,6 +14,7 @@ public class ItemData_Equipment : ItemData
 {
     public EquipmentType equipmentType;
 
+    public float itemCooldown;
     public ItemEffect[] itemEffects;
 
     [Header("Major stats")]         // 主要属性 - 影响角色基础能力

@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 922c66db476bc4645b527f0e347511cd, type: 3}
-  m_Name: Amulet of god
+  m_Name: Rogue's jacket
   m_EditorClassIdentifier: 
-  itemType: 0
-  itemName: 
-  icon: {fileID: 0}
+  itemType: 1
+  itemName: Rogue's jacket
+  icon: {fileID: 957708663, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   dropChance: 0
-  equipmentType: 0
+  equipmentType: 1
+  itemCooldown: 0
   itemEffects: []
   strength: 0
   agility: 0

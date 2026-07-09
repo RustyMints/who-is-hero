@@ -27,6 +27,13 @@ public class Inventory : MonoBehaviour
     private UIitemSlot[] stashItemSlot;
     private UI_EquipmentSlot[] equipmentSlot;
 
+    [Header("Items cooldown")]
+    private float lastTimeUsedFlask;
+    private float lastTimeUseArmor;
+
+    private float flaskCooldown;
+    private float armorCooldown;
+
     public static Inventory GetInstance()
     {
         // ===== 修复：确保 instance 不为空 =====
@@ -294,4 +301,41 @@ public class Inventory : MonoBehaviour
 
         return equipedItem;
     }
+
+    public void UseFlask()
+    {
+        ItemData_Equipment currentflask = GetEquipment(EquipmentType.Flask);
+
+        if(currentflask == null)
+            return;
+
+        bool canUseFlask = Time.time > lastTimeUsedFlask + flaskCooldown;
+
+        if (canUseFlask)
+        {
+            flaskCooldown = currentflask.itemCooldown;
+            currentflask.Effect(null);
+            lastTimeUsedFlask = Time.time;
+        }
+
+        else
+            Debug.Log("道具正在冷却");
+    }
+
+    public bool CanUseArmor()
+    {
+        ItemData_Equipment currentArmor = GetEquipment(EquipmentType.Armor);
+
+        if (Time.time > lastTimeUseArmor + armorCooldown)
+        {
+            armorCooldown = currentArmor.itemCooldown;
+            lastTimeUseArmor = Time.time;
+            return true;
+        }
+
+        Debug.Log("盔甲正在冷却");
+        return false;
+    }
+
+    
 }
