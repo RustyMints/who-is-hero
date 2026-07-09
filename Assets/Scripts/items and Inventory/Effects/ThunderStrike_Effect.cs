@@ -15,7 +15,7 @@ public class ThunderStrike_Effect : ItemEffect
         // ===== 修复：Prefab 未赋值时不崩溃，给出明确警告 =====
         if (thunderStrikePrefab == null)
         {
-            Debug.LogWarning($"ThunderStrike_Effect: thunderStrikePrefab 未赋值！请在 \"Data/Item Effects/Thunder strike\" 资产的 Inspector 中指定 ThunderStrike Prefab。", this);
+           //Debug.LogWarning($"ThunderStrike_Effect: thunderStrikePrefab 未赋值！请在 \"Data/Item Effects/Thunder strike\" 资产的 Inspector 中指定 ThunderStrike Prefab。", this);
             return;
         }
         if (_enemyPosition == null)

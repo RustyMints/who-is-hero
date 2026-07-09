@@ -1,6 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Sword_Skill_Controller : MonoBehaviour
@@ -59,7 +58,7 @@ public class Sword_Skill_Controller : MonoBehaviour
         rb.velocity = _dir;
         rb.gravityScale = _gravityScale;
 
-        if(pierceAmount <= 0)
+        if (pierceAmount <= 0)
             anim.SetBool("Rotation", true);
 
         Invoke("DestoryMe", 5);
@@ -67,7 +66,7 @@ public class Sword_Skill_Controller : MonoBehaviour
         spinDirection = Mathf.Clamp(rb.velocity.x, -1, 1);
     }
 
-    public void SetupBounce(bool _isBouncing, int _amountOfBounces,float _bounceSpeed)
+    public void SetupBounce(bool _isBouncing, int _amountOfBounces, float _bounceSpeed)
     {
         isBouncing = _isBouncing;
         bounceAmount = _amountOfBounces;
@@ -171,7 +170,7 @@ public class Sword_Skill_Controller : MonoBehaviour
             if (Vector2.Distance(transform.position, enemyTarget[targetIndex].position) < 0.1f)
             {
                 SwordSkillDamage(enemyTarget[targetIndex].GetComponent<Enemy>());
-                
+
 
                 targetIndex++;
                 bounceAmount--;
@@ -194,7 +193,7 @@ public class Sword_Skill_Controller : MonoBehaviour
             return;
 
 
-        if(collision.GetComponent<Enemy>() != null)
+        if (collision.GetComponent<Enemy>() != null)
         {
             Enemy enemy = collision.GetComponent<Enemy>();
             SwordSkillDamage(enemy);
@@ -210,6 +209,11 @@ public class Sword_Skill_Controller : MonoBehaviour
     {
         player.starts.DoDamage(enemy.GetComponent<CharacterStarts>());
         enemy.StartCoroutine("FreezeTimerFor", freezeTimeDuration);
+
+        ItemData_Equipment equipedAmulet = Inventory.instance.GetEquipment(EquipmentType.Amulet);
+
+        if (equipedAmulet != null)
+            equipedAmulet.Effect(enemy.transform);
     }
 
     private void SetupTargetsForBounce(Collider2D collision)
@@ -231,7 +235,7 @@ public class Sword_Skill_Controller : MonoBehaviour
 
     private void StuckInto(Collider2D collision)
     {
-        if(pierceAmount > 0 && collision.GetComponent<Enemy>() != null)
+        if (pierceAmount > 0 && collision.GetComponent<Enemy>() != null)
         {
             pierceAmount--;
             return;
@@ -249,7 +253,7 @@ public class Sword_Skill_Controller : MonoBehaviour
         rb.isKinematic = true;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
-        if(isBouncing && enemyTarget.Count > 0)
+        if (isBouncing && enemyTarget.Count > 0)
             return;
 
         anim.SetBool("Rotation", false);
