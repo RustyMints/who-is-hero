@@ -22,10 +22,12 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Transform inventorySlotparent;
     [SerializeField] private Transform stashSlotParent;
     [SerializeField] private Transform equipmentSlotParent;
+    [SerializeField] private Transform statSlotParent;
 
     private UIitemSlot[] inventoryItemSlot;
     private UIitemSlot[] stashItemSlot;
     private UI_EquipmentSlot[] equipmentSlot;
+    private UI_StatSlot[] statSlot;
 
     [Header("Items cooldown")]
     private float lastTimeUsedFlask;
@@ -67,26 +69,23 @@ public class Inventory : MonoBehaviour
         if (inventorySlotparent != null)
             inventoryItemSlot = inventorySlotparent.GetComponentsInChildren<UIitemSlot>();
         else
-        {
-
             inventoryItemSlot = new UIitemSlot[0];
-        }
 
         if (stashSlotParent != null)
             stashItemSlot = stashSlotParent.GetComponentsInChildren<UIitemSlot>();
         else
-        {
-
             stashItemSlot = new UIitemSlot[0];
-        }
 
         if (equipmentSlotParent != null)
             equipmentSlot = equipmentSlotParent.GetComponentsInChildren<UI_EquipmentSlot>();
         else
-        {
-
             equipmentSlot = new UI_EquipmentSlot[0];
-        }
+
+        // ===== 修复：statSlot 数组初始化 —— 使用复数GetComponentsInChildren返回数组，并加null兜底，避免CS0029+NRE =====
+        if (statSlotParent != null)
+            statSlot = statSlotParent.GetComponentsInChildren<UI_StatSlot>();
+        else
+            statSlot = new UI_StatSlot[0];
 
         AddStartingItems();
     }
@@ -176,6 +175,16 @@ public class Inventory : MonoBehaviour
         {
             stashItemSlot[i].UpdateSlot(stash[i]);
         }
+
+        // ===== 修复：装备/卸下装备后同步刷新角色属性面板（statSlot），避免UI显示旧数值 =====
+        if (statSlot != null && statSlot.Length > 0)
+        {
+            for (int i = 0; i < statSlot.Length; i++)
+            {
+                if (statSlot[i] != null)
+                    statSlot[i].UpdateStatValueUI();
+            }
+        }
     }
 
     public void AddItem(ItemData _item)
@@ -183,7 +192,7 @@ public class Inventory : MonoBehaviour
         if (_item == null)
             return;
 
-        if (_item.itemType == ItemType.Equipment)
+        if (_item.itemType == ItemType.Equipment && CanAddItem())
             AddToInventory(_item);
         else if (_item.itemType == ItemType.Material)
             AddToStash(_item);
@@ -244,6 +253,17 @@ public class Inventory : MonoBehaviour
         }
 
         UpdateSlotUI();
+    }
+
+    public bool CanAddItem()
+    {
+        if(inventory.Count >= inventoryItemSlot.Length)
+        {
+            Debug.Log("背包已满");
+            return false;
+        }
+
+        return true;
     }
 
     public bool CanCraft(ItemData_Equipment _itemToCraft,List<InventoryItem> _requiredMaterials)

@@ -14,6 +14,9 @@ public class UI_EquipmentSlot : UIitemSlot
 
     public override void OnPointerDown(PointerEventData eventData)
     {
+        if (item == null || item.data == null)
+            return;
+
         // ===== 修复：卸下装备UI点击空引用 + UI二次清空 =====
         // 1. Inventory 实例判空
         Inventory inventory = Inventory.GetInstance();

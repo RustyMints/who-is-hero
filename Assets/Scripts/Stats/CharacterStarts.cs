@@ -1,52 +1,71 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+
+public enum StatType
+{
+    strength,      //力量：增加物理伤害与暴击伤害
+    agility,       //敏捷：增加暴击率与闪避率
+    intelegence,   //智力：增加魔法伤害与魔法抗性（拼写：intelligence）
+    vitality,      //活力：每点增加5点最大生命值
+    damage,        //基础物理伤害
+    critChance,    //暴击几率（百分比）
+    critPower,     //暴击伤害倍率（百分比，默认150即1.5倍）
+    health,        //最大生命值（对应字段maxHealth）
+    armor,         //护甲：减免物理伤害
+    evasion,       //闪避：概率完全闪避攻击
+    magicRes,      //魔法抗性：减免魔法伤害（对应字段magicResistance）
+    fireDamage,    //火焰元素伤害，额外附带点燃DoT
+    iceDamage,     //冰霜元素伤害，附带减速20%
+    lightingDamage //雷电元素伤害，附带触电并连锁闪电（拼写：lightning）
+}
 
 public class CharacterStarts : MonoBehaviour
 {
     private EntityFX fx;
 
     [Header("Major stats")]
-    public Stat strength; //
-    public Stat agility; //
-    public Stat intelligence;
-    public Stat vitality;
+    public Stat strength;       //力量：物理伤害加成 + 暴击伤害加成
+    public Stat agility;        //敏捷：暴击率加成 + 闪避率加成
+    public Stat intelligence;   //智力：魔法伤害加成 + 魔法抗性加成（每点+3抗性）
+    public Stat vitality;       //活力：每点+5最大生命值
 
     [Header("Offensive stats")]
-    public Stat damage;
-    public Stat critChance;
-    public Stat critPower;
+    public Stat damage;         //基础物理伤害
+    public Stat critChance;     //暴击概率（百分比，100%必暴）
+    public Stat critPower;      //暴击伤害倍率（默认150即造成1.5倍伤害）
     
 
     [Header("Defencive stats")]
-    public Stat maxHealth;
-    public Stat armor;
-    public Stat evasion;
-    public Stat magicResistance;
+    public Stat maxHealth;      //最大生命值
+    public Stat armor;          //护甲：直接扣减物理伤害（冰冻状态下仅生效80%）
+    public Stat evasion;        //闪避：概率完全免疫一次攻击（百分比）
+    public Stat magicResistance;//魔法抗性：直接扣减魔法伤害
 
     [Header("Magic stats")]
-    public Stat fireDamage;
-    public Stat iceDamage;
-    public Stat lightingDamage;
+    public Stat fireDamage;     //火焰伤害：叠加点燃持续伤害DoT
+    public Stat iceDamage;      //冰霜伤害：附加减速20%（持续ailmentsDuration秒）
+    public Stat lightingDamage; //雷电伤害：附加触电+连锁最近敌人的雷击（拼写：lightning）
 
-    public bool isIgnited; //随着时间推移造成伤害
-    public bool isChilld;  //减少20%的伤害
-    public bool isShocked; //降低20%的精准度
+    public bool isIgnited; //是否处于【点燃】状态：持续每0.3秒造成火焰DoT伤害
+    public bool isChilld;  //是否处于【冰冻/寒冷】状态：移速降低20%，护甲减伤仅80%
+    public bool isShocked; //是否处于【触电】状态：闪避+20（自身命中下降），下次被雷电攻击触发连锁
 
-    [SerializeField] private float ailmentsDuration = 4;
-    private float ignitedTimer;
-    private float chilledTimer;
-    private float shockedTimer;
+    [SerializeField] private float ailmentsDuration = 4; //元素异常状态总持续时间（秒）
+    private float ignitedTimer;    //点燃状态剩余时间
+    private float chilledTimer;    //寒冷状态剩余时间
+    private float shockedTimer;    //触电状态剩余时间
 
 
-    private float igniteDamageCoolDown = 0.3f;
-    private float igniteDamageTimer;
-    private int igniteDamage;
-    [SerializeField] private GameObject shockStrikePrefab;
-    private int shockDamgae;
-    public int currentHealth;
+    private float igniteDamageCoolDown = 0.3f; //点燃DoT的伤害触发间隔（秒）
+    private float igniteDamageTimer;           //点燃DoT下一次触发的倒计时
+    private int igniteDamage;                   //当前点燃每次触发的伤害值
+    [SerializeField] private GameObject shockStrikePrefab; //雷电连锁时生成的雷击预制体
+    private int shockDamgae;                    //连锁雷击造成的伤害（拼写：shockDamage）
+    public int currentHealth;                   //当前生命值
 
-    public System.Action onHealthChanged;
-    public bool isDead { get; private set; }
+    public System.Action onHealthChanged;       //生命值变化回调事件（UI血量条订阅）
+    public bool isDead { get; private set; }    //是否已死亡
 
     protected virtual void Start()
     {
@@ -381,4 +400,24 @@ public class CharacterStarts : MonoBehaviour
     }
 
     #endregion
+
+    public Stat GetStat(StatType _statType)
+    {
+        if (_statType == StatType.strength) return strength;
+        else if (_statType == StatType.agility) return agility;
+        else if (_statType == StatType.intelegence) return intelligence;
+        else if (_statType == StatType.vitality) return vitality;
+        else if (_statType == StatType.damage) return damage;
+        else if (_statType == StatType.critChance) return critChance;
+        else if (_statType == StatType.critPower) return critPower;
+        else if (_statType == StatType.health) return maxHealth;
+        else if (_statType == StatType.armor) return armor;
+        else if (_statType == StatType.evasion) return evasion;
+        else if (_statType == StatType.magicRes) return magicResistance;
+        else if (_statType == StatType.fireDamage) return fireDamage;
+        else if (_statType == StatType.iceDamage) return iceDamage;
+        else if (_statType == StatType.lightingDamage) return lightingDamage;
+
+        return null;
+    }
 }

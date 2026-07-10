@@ -16,20 +16,21 @@ MonoBehaviour:
   itemName: Blue wolf armor
   icon: {fileID: 288293509, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   dropChance: 0
-  equipmentType: 0
-  itemCooldown: 0
-  itemEffects: []
-  strength: 0
+  equipmentType: 1
+  itemCooldown: 5
+  itemEffects:
+  - {fileID: 11400000, guid: fd9fc272f886c7340b3bbb64876ef920, type: 2}
+  strength: 4
   agility: 0
   intelligence: 0
   vitality: 0
   damage: 0
   critChance: 0
   critPower: 0
-  health: 0
-  armor: 0
+  health: 50
+  armor: 15
   evasion: 0
-  magicResistance: 0
+  magicResistance: 15
   fireDamage: 0
   iceDamage: 0
   lightingDamage: 0

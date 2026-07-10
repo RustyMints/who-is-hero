@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum EquipmentType
@@ -41,6 +42,8 @@ public class ItemData_Equipment : ItemData
 
     [Header("Craft requirements")]
     public List<InventoryItem> craftingMaterials;
+
+    private int DescriptionLength;
 
     public void Effect(Transform _enemyPosition)
     {
@@ -93,5 +96,61 @@ public class ItemData_Equipment : ItemData
         playerStats.fireDamage.RemoveModifier(fireDamage);
         playerStats.iceDamage.RemoveModifier(iceDamage);
         playerStats.lightingDamage.RemoveModifier(lightingDamage);
+    }
+
+    public override string GetDescription()
+    {
+        // ===== 修复：装备描述拼接前先清空StringBuilder，防止多次查看时描述逐行累积 =====
+        //sb.Length = 0;
+        sb.Clear();
+        DescriptionLength = 0;
+
+        // Major stats —— 主要属性
+        AddItemDescription(strength, "力量");
+        AddItemDescription(agility, "敏捷");
+        AddItemDescription(intelligence, "智力");
+        AddItemDescription(vitality, "活力");
+
+        // Offensive stats —— 攻击属性
+        AddItemDescription(damage, "伤害");
+        AddItemDescription(critChance, "暴击几率");
+        AddItemDescription(critPower, "暴击伤害");
+
+        // Defensive stats —— 防御属性
+        AddItemDescription(health, "生命值");
+        AddItemDescription(armor, "护甲");
+        AddItemDescription(evasion, "闪避");
+        AddItemDescription(magicResistance, "魔法抗性");
+
+        // Magic stats —— 魔法属性
+        AddItemDescription(fireDamage, "火焰伤害");
+        AddItemDescription(iceDamage, "冰霜伤害");
+        AddItemDescription(lightingDamage, "雷电伤害");
+
+
+        if (DescriptionLength < 5)
+        {
+            for (int i =  0; i < 5 - DescriptionLength; i++)
+            {
+                sb.AppendLine();
+                sb.Append("");
+            }
+        }
+
+        return sb.ToString();
+    }
+
+    private void AddItemDescription (int _value,string _name)
+    {
+        if(_value != 0)
+        {
+            if (sb.Length > 0)
+                sb.AppendLine();
+
+            if (_value > 0)
+                sb.Append("+ " + _value + " " + _name);
+
+            DescriptionLength++;
+        }
     }
 }
