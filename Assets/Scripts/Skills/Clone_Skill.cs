@@ -10,9 +10,6 @@ public class Clone_Skill : Skill
     [SerializeField] private float cloneDuration;
     [Space] 
     [SerializeField] private bool canAttack;
-
-    [SerializeField] private bool createCloneOnDashStart;
-    [SerializeField] private bool createCloneOnDashOver;
     [SerializeField] private bool canCreateCloneOnCounterAttack;
     [Header("Clone can duplicate")]
     [SerializeField] private bool canDuplicateClone;
@@ -37,21 +34,7 @@ public class Clone_Skill : Skill
         newClone.GetComponent<Clone_Skill_controller>().
             SetupClone(_clonePosition,cloneDuration,canAttack,_offset,enemy,canDuplicateClone,chanceToDuplicate,player);
     }
-    // [修复结束]
-
-    public void CreateCloneOnDashStart()
-    {
-        if (createCloneOnDashStart)
-            CreateClone(player.transform, Vector3.zero);
-    }
-
-    public void CreateCloneOnDashOver()
-    {
-        if(createCloneOnDashOver)
-            CreateClone(player.transform, Vector3.zero);
-    }
-
-    // [修复] 传递敌人transform给CreateClone，确保克隆朝向正确的敌人
+    
     public void CreateCloneOnCounterAttack(Transform _enemyTransform)
     {
         if (canCreateCloneOnCounterAttack)

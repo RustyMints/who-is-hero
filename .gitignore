@@ -43,3 +43,9 @@ Builds/
 
 # IDE working documents (TRAE plan/spec files — generated per session, not production code)
 .trae/
+
+# TDD temporary console projects (bin/obj/dll/exe build artifacts — excluded from game repo)
+CombatSystemTDD/
+CraftListTests/
+TestRunner/
+Tests/
