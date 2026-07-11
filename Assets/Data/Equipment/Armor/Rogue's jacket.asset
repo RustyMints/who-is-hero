@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Rogue's jacket
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: Rogue's jacket
-  icon: {fileID: 957708663, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  itemName: "\u76D7\u8D3C\u5916\u5957"
+  itemicon: {fileID: 957708663, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   dropChance: 0
   equipmentType: 1
   itemCooldown: 0
   itemEffects:
   - {fileID: 11400000, guid: f713abdfb460d2f44ac28827cacc935c, type: 2}
+  itemEffectDescription: "\u7279\u6B8A\uFF1A\u6BCF\u6B21\u53D7\u5230\u653B\u51FB\u65F6\u63D0\u9AD8\u95EA\u907F"
   strength: 0
   agility: 5
   intelligence: 0

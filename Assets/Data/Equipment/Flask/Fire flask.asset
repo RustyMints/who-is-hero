@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Fire flask
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: Fire flask
-  icon: {fileID: 1073501139, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  itemName: "\u70C8\u7130\u836F\u5242"
+  itemicon: {fileID: 1463097486, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   dropChance: 0
   equipmentType: 3
   itemCooldown: 0

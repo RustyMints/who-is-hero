@@ -94,6 +94,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < StartingItems.Count; i++)
         {
+            if(StartingItems[i] != null)
             AddItem(StartingItems[i]);
         }
     }

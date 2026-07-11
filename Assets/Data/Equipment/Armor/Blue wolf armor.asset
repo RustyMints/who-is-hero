@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Blue wolf armor
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: Blue wolf armor
-  icon: {fileID: 288293509, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  itemName: "\u82CD\u72FC\u6218\u7532"
+  itemicon: {fileID: -1871269579, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   dropChance: 0
   equipmentType: 1
   itemCooldown: 5

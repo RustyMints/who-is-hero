@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Animalskin
   m_EditorClassIdentifier: 
   itemType: 0
-  itemName: Animalskin
-  icon: {fileID: -973012730, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  itemName: "\u517D\u76AE"
+  itemicon: {fileID: -973012730, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   dropChance: 60

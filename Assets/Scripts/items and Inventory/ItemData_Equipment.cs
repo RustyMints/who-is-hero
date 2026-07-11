@@ -15,8 +15,12 @@ public class ItemData_Equipment : ItemData
 {
     public EquipmentType equipmentType;
 
+    [Header("Unique effect")]
     public float itemCooldown;
     public ItemEffect[] itemEffects;
+    [TextArea]
+    public string itemEffectDescription;
+
 
     [Header("Major stats")]         // 主要属性 - 影响角色基础能力
     public int strength;            // 力量 - 增加物理攻击和物理防御
@@ -135,6 +139,12 @@ public class ItemData_Equipment : ItemData
                 sb.AppendLine();
                 sb.Append("");
             }
+        }
+
+        if(itemEffectDescription.Length > 0)
+        {
+            sb.AppendLine();
+            sb.Append(itemEffectDescription);
         }
 
         return sb.ToString();

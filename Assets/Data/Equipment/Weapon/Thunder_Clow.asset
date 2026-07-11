@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Thunder_Clow
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: Thunder_Clow
-  icon: {fileID: 367297872, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  itemName: "\u96F7\u9706\u4E4B\u5251"
+  itemicon: {fileID: 367297872, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   dropChance: 0
   equipmentType: 0
+  itemCooldown: 0
   itemEffects:
   - {fileID: 11400000, guid: 5cca62565cadf784da602c35b8fefe81, type: 2}
   strength: 0
@@ -33,4 +34,8 @@ MonoBehaviour:
   fireDamage: 0
   iceDamage: 0
   lightingDamage: 5
-  craftingMaterials: []
+  craftingMaterials:
+  - data: {fileID: 11400000, guid: c67dabdbe2fbfea409facc5d08cfb886, type: 2}
+    stackSize: 7
+  - data: {fileID: 11400000, guid: 6e96888e79ebfac42b95d9683e5a827f, type: 2}
+    stackSize: 15

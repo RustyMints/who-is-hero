@@ -40,3 +40,6 @@ Builds/
 
 # Plastic SCM files
 .plastic/
+
+# IDE working documents (TRAE plan/spec files — generated per session, not production code)
+.trae/
