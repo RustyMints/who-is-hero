@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,11 +16,10 @@ public class UI_InGame : MonoBehaviour
     [SerializeField] private Image blackholeImage;
     [SerializeField] private Image flaskImage;
 
+    [SerializeField] private TextMeshProUGUI currentSouls;
     private SkillManager skills;
 
     private float lastHealth;
-    private float barWidth;
-    private RectTransform sliderTransform;
 
     void Start()
     {
@@ -28,16 +28,7 @@ public class UI_InGame : MonoBehaviour
 
         skills = SkillManager.instance;
 
-        sliderTransform = slider.GetComponent<RectTransform>();
         lastHealth = playerStats.GetMaxHealthValue();
-
-        StartCoroutine(InitializeBarSize());
-    }
-
-    private System.Collections.IEnumerator InitializeBarSize()
-    {
-        yield return new WaitForEndOfFrame();
-        barWidth = sliderTransform.rect.width;
     }
 
     private void UpdateHealthUI()
@@ -101,7 +92,10 @@ public class UI_InGame : MonoBehaviour
 
         cg.alpha = 1;
 
-        StartCoroutine(ChipAnimation(chip, cg));
+        CoroutineRunner runner = chip.GetComponent<CoroutineRunner>();
+        if (runner == null)
+            runner = chip.AddComponent<CoroutineRunner>();
+        runner.RunCoroutine(ChipAnimation(chip, cg));
     }
 
     private System.Collections.IEnumerator ChipAnimation(GameObject chip, CanvasGroup cg)
@@ -157,7 +151,7 @@ public class UI_InGame : MonoBehaviour
         flash.transform.SetParent(fillAreaRT);
         flash.transform.localScale = Vector3.one;
 
-        float flashWidth = 40f;
+        float flashWidth = 30f;
         float flashHeight = fillRT.rect.height * 2.5f;
 
         flashRT.anchorMin = new Vector2(0, 0.5f);
@@ -169,12 +163,15 @@ public class UI_InGame : MonoBehaviour
         float maxHealth = slider.maxValue;
         float ratio = currentHealth / maxHealth;
         float barWidth = fillAreaRT.rect.width;
-        float targetX = barWidth * ratio;
+        float targetX = barWidth * ratio - flashWidth / 2f;
         flashRT.anchoredPosition = new Vector2(targetX, fillRT.anchoredPosition.y);
 
         fg.alpha = 1;
 
-        StartCoroutine(FlashAnimation(flash, fg));
+        CoroutineRunner runner = flash.GetComponent<CoroutineRunner>();
+        if (runner == null)
+            runner = flash.AddComponent<CoroutineRunner>();
+        runner.RunCoroutine(FlashAnimation(flash, fg));
     }
 
     private System.Collections.IEnumerator FlashAnimation(GameObject flash, CanvasGroup fg)
@@ -198,22 +195,24 @@ public class UI_InGame : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        currentSouls.text = PlayerManager.instance.GetCurrency().ToString("#,#");
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && skills.dash.dashUnlocked)
             SetCooldownOf(dashImage);
 
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetKeyDown(KeyCode.Q) && skills.parry.parryUnlocked)
             SetCooldownOf(parryImage);
 
-        if (Input.GetKeyDown(KeyCode.F)) 
+        if (Input.GetKeyDown(KeyCode.F) && skills.crystal.crystalUnlocked)
             SetCooldownOf(crystalImage);
 
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+        if(Input.GetKeyDown(KeyCode.Mouse1) && skills.sword.swordUnlock)
             SetCooldownOf(swordImage);
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && skills.blackhole.blackholeUnlocked)
             SetCooldownOf(blackholeImage);
 
-        if(Input.GetKeyDown (KeyCode.Alpha1))
+        if(Input.GetKeyDown (KeyCode.Alpha1) && Inventory.instance.GetEquipment(EquipmentType.Flask) != null)
             SetCooldownOf(flaskImage);
 
         CheckCooldownOf(dashImage, skills.dash.cooldown);

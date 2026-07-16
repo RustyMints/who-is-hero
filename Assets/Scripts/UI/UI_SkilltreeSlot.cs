@@ -9,7 +9,7 @@ public class UI_SkilltreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
     private UI ui;
     private Image skillImage;
 
-    [SerializeField] private int skillPrice; 
+    [SerializeField] private int skillCost; 
     [SerializeField] private string skillName;
     [TextArea]
     [SerializeField] private string skillDescription;
@@ -64,7 +64,7 @@ public class UI_SkilltreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
             }
         }
 
-        if (PlayerManager.instance.HaveEnoughMoney(skillPrice) == false)
+        if (PlayerManager.instance.HaveEnoughMoney(skillCost) == false)
             return;
 
         unlocked = true;
@@ -72,25 +72,9 @@ public class UI_SkilltreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        ui.skillTooltip.ShowToolTip(skillDescription,skillName);
+        ui.skillTooltip.ShowToolTip(skillDescription,skillName,skillCost);
 
-        Vector2 mousePosition = Input.mousePosition;
         
-
-        float xOffset = 0;
-        float yOffset = 0;
-
-        if (mousePosition.x > 600)
-            xOffset = -150;
-        else
-            xOffset = 150;
-
-        if (mousePosition.y > 320)
-            yOffset = -150;
-        else
-            yOffset = 150;
-
-        ui.skillTooltip.transform.position = new Vector2(mousePosition.x + xOffset, mousePosition.y + yOffset);
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -97,7 +97,10 @@ public class UI_HealthBar : MonoBehaviour
 
         cg.alpha = 1;
 
-        StartCoroutine(ChipAnimation(chip, cg));
+        CoroutineRunner runner = chip.GetComponent<CoroutineRunner>();
+        if (runner == null)
+            runner = chip.AddComponent<CoroutineRunner>();
+        runner.RunCoroutine(ChipAnimation(chip, cg));
     }
 
     private IEnumerator ChipAnimation(GameObject chip, CanvasGroup cg)
@@ -153,7 +156,7 @@ public class UI_HealthBar : MonoBehaviour
         flash.transform.SetParent(fillAreaRT);
         flash.transform.localScale = Vector3.one;
 
-        float flashWidth = 50f;
+        float flashWidth = 30f;
         float flashHeight = fillRT.rect.height * 3f;
 
         flashRT.anchorMin = new Vector2(0, 0.5f);
@@ -170,7 +173,10 @@ public class UI_HealthBar : MonoBehaviour
 
         fg.alpha = 1;
 
-        StartCoroutine(FlashAnimation(flash, fg));
+        CoroutineRunner runner = flash.GetComponent<CoroutineRunner>();
+        if (runner == null)
+            runner = flash.AddComponent<CoroutineRunner>();
+        runner.RunCoroutine(FlashAnimation(flash, fg));
     }
 
     private IEnumerator FlashAnimation(GameObject flash, CanvasGroup fg)

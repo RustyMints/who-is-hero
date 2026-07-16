@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UI_ItemToolTip : MonoBehaviour
+public class UI_ItemToolTip : UI_ToolTip
 {
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private TextMeshProUGUI itemTypeText;
@@ -22,10 +22,8 @@ public class UI_ItemToolTip : MonoBehaviour
         // ===== 汉化修改结束：描述依然走 GetDescription（之前已完成全部中文属性名）=====
         itemDescription.text = item.GetDescription();
 
-        if (itemNameText.text.Length > 8)
-            itemNameText.fontSize = itemNameText.fontSize * 0.7f;
-        else
-            itemNameText.fontSize = defaultFontSize;
+        AdjiusFontSize(itemNameText);
+        AdjustPosition();
 
         gameObject.SetActive(true);
     }

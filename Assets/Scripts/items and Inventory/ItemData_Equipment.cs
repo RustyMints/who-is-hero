@@ -18,8 +18,8 @@ public class ItemData_Equipment : ItemData
     [Header("Unique effect")]
     public float itemCooldown;
     public ItemEffect[] itemEffects;
-    [TextArea]
-    public string itemEffectDescription;
+    
+    
 
 
     [Header("Major stats")]         // 主要属性 - 影响角色基础能力
@@ -131,6 +131,15 @@ public class ItemData_Equipment : ItemData
         AddItemDescription(iceDamage, "冰霜伤害");
         AddItemDescription(lightingDamage, "雷电伤害");
 
+        for (int i = 0; i < itemEffects.Length; i++)
+        {
+            if (itemEffects[i].effectDescription.Length > 0)
+            {
+                sb.AppendLine();
+                sb.AppendLine("特殊效果: " + itemEffects[i].effectDescription);
+                DescriptionLength++;
+            }
+        }
 
         if (DescriptionLength < 5)
         {
@@ -141,11 +150,7 @@ public class ItemData_Equipment : ItemData
             }
         }
 
-        if(itemEffectDescription.Length > 0)
-        {
-            sb.AppendLine();
-            sb.Append(itemEffectDescription);
-        }
+        
 
         return sb.ToString();
     }

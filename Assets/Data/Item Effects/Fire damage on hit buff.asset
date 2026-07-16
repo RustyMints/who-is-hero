@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec881ed13961b040b2855f321350596, type: 3}
   m_Name: Fire damage on hit buff
   m_EditorClassIdentifier: 
+  effectDescription: "\u653B\u51FB\u9644\u52A0\u706B\u7130\u4F24\u5BB3"
   buffType: 11
   buffAmount: 3
   buffDuration: 2
