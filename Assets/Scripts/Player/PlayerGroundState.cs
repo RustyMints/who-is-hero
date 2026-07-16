@@ -23,13 +23,13 @@ public class PlayerGroundState : PlayerState
     {
         base.Update();
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.R) && player.skill.blackhole.blackholeUnlocked)
             stateMachine.changeState(player.blackHole);
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && HasNoSword())
+        if (Input.GetKeyDown(KeyCode.Mouse1) && HasNoSword() && player.skill.sword.swordUnlock)
             stateMachine.changeState(player.aimSword);
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && player.skill.parry.parryUnlocked)
             stateMachine.changeState(player.counterAttack);
 
         if (Input.GetKey(KeyCode.Mouse0))

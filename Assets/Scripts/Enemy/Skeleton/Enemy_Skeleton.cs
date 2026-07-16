@@ -25,7 +25,7 @@ public class Enemy_Skeleton : Enemy
         battleState = new SkeletonBattleState(this, stateMachine, "Move", this);
         attackState = new SkeletonAttackState(this, stateMachine, "Attack", this);
         stunnedState = new SkeletonStunneddate(this, stateMachine, "Stunned", this);
-        deadState = new SkeletonDeadState(this, stateMachine, "Idle", this);
+        deadState = new SkeletonDeadState(this, stateMachine, "Dead", this);
     }
 
     protected override void Start()
@@ -38,11 +38,11 @@ public class Enemy_Skeleton : Enemy
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            stateMachine.ChangeState(stunnedState);
-
-        }
+        // [测试代码] 按U键强制进入眩晕状态 - 已注释
+        // if (Input.GetKeyDown(KeyCode.U))
+        // {
+        //     stateMachine.ChangeState(stunnedState);
+        // }
     }
 
     public override bool CanBeStunned()

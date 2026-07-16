@@ -33,7 +33,7 @@ public class Inventory : MonoBehaviour
     private float lastTimeUsedFlask;
     private float lastTimeUseArmor;
 
-    private float flaskCooldown;
+    public float flaskCooldown { get; private set; }
     private float armorCooldown;
 
     public static Inventory GetInstance()
@@ -177,14 +177,15 @@ public class Inventory : MonoBehaviour
             stashItemSlot[i].UpdateSlot(stash[i]);
         }
 
-        // ===== 修复：装备/卸下装备后同步刷新角色属性面板（statSlot），避免UI显示旧数值 =====
-        if (statSlot != null && statSlot.Length > 0)
+        UpdateStatsUI();
+    }
+
+    public void UpdateStatsUI()
+    {
+        for (int i = 0; i < statSlot.Length; i++)
         {
-            for (int i = 0; i < statSlot.Length; i++)
-            {
-                if (statSlot[i] != null)
-                    statSlot[i].UpdateStatValueUI();
-            }
+
+            statSlot[i].UpdateStatValueUI();
         }
     }
 
