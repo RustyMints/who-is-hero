@@ -23,13 +23,15 @@ public class PlayerGroundState : PlayerState
     {
         base.Update();
 
-        if(Input.GetKeyDown(KeyCode.R) && player.skill.blackhole.blackholeUnlocked)
+        player.UpdateCoyoteTime();
+
+        if(Input.GetKeyDown(KeyCode.R) && player.skill.blackhole.blackholeUnlocked && player.skill.blackhole.IsSkillReady())
             stateMachine.changeState(player.blackHole);
 
         if (Input.GetKeyDown(KeyCode.Mouse1) && HasNoSword() && player.skill.sword.swordUnlock)
             stateMachine.changeState(player.aimSword);
 
-        if (Input.GetKeyDown(KeyCode.Q) && player.skill.parry.parryUnlocked)
+        if (Input.GetKeyDown(KeyCode.Q) && player.skill.parry.parryUnlocked && player.skill.parry.IsSkillReady())
             stateMachine.changeState(player.counterAttack);
 
         if (Input.GetKey(KeyCode.Mouse0))
@@ -39,7 +41,10 @@ public class PlayerGroundState : PlayerState
             stateMachine.changeState(player.airState);
 
         if (Input.GetKeyDown(KeyCode.W) && player.IsGroundDetected())
+        {
+            player.ResetCoyoteTime();
             stateMachine.changeState(player.jumpState);
+        }
     }
 
     private bool HasNoSword()

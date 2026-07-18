@@ -34,11 +34,11 @@ public class Blackhole_Skill : Skill
     {
         base.UseSkill();
 
-        GameObject newBlackHole = Instantiate(blackHolePrefab,player.transform.position,Quaternion.identity);
+        GameObject newBlackHole = Instantiate(blackHolePrefab, player.transform.position, Quaternion.identity);
 
         currentBlackhole = newBlackHole.GetComponent<Blackhole_Skill_Controller>();
 
-        currentBlackhole.SetupBlackhole(maxSize,growSpeed, shrinkSpeed, amountOfAttacks, clonecooldown,blackholeDuration);
+        currentBlackhole.SetupBlackhole(maxSize, growSpeed, shrinkSpeed, amountOfAttacks, clonecooldown, blackholeDuration);
     }
 
     protected override void Start()
@@ -70,5 +70,12 @@ public class Blackhole_Skill : Skill
     public float GetBlackholeRadius()
     {
         return maxSize / 2;
+    }
+
+    protected override void CheckUnlock()
+    {
+        base.CheckUnlock();
+
+        UnlockBlackhole();
     }
 }

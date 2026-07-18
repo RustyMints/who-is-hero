@@ -15,6 +15,7 @@ public class UI_HealthBar : MonoBehaviour
     private Image fillImage;
 
     private float lastHealth;
+    private GameObject currentFlash;
 
     private void Start()
     {
@@ -133,6 +134,29 @@ public class UI_HealthBar : MonoBehaviour
         if (slider == null) return;
         if (slider.fillRect == null) return;
 
+        RectTransform fillRT = slider.fillRect;
+        RectTransform fillAreaRT = fillRT.parent as RectTransform;
+        if (fillAreaRT == null) return;
+
+        float flashWidth = 30f;
+        float barWidth = fillAreaRT.rect.width;
+        float targetX = barWidth * newRatio - flashWidth / 2f;
+
+        if (currentFlash != null)
+        {
+            RectTransform existingFlashRT = currentFlash.GetComponent<RectTransform>();
+            if (existingFlashRT != null)
+            {
+                existingFlashRT.anchoredPosition = new Vector2(targetX, fillRT.anchoredPosition.y);
+            }
+            CanvasGroup existingFg = currentFlash.GetComponent<CanvasGroup>();
+            if (existingFg != null)
+            {
+                existingFg.alpha = 1;
+            }
+            return;
+        }
+
         GameObject flash = Instantiate(flashPrefab);
         CanvasGroup fg = flash.GetComponent<CanvasGroup>();
         if (fg == null)
@@ -147,31 +171,22 @@ public class UI_HealthBar : MonoBehaviour
         RectTransform flashRT = flash.GetComponent<RectTransform>();
         if (flashRT == null) return;
 
-        RectTransform fillRT = slider.fillRect;
-        RectTransform fillAreaRT = fillRT.parent as RectTransform;
-        if (fillAreaRT == null) return;
-
         float fullWidth = fillAreaRT.rect.width;
 
         flash.transform.SetParent(fillAreaRT);
         flash.transform.localScale = Vector3.one;
 
-        float flashWidth = 30f;
         float flashHeight = fillRT.rect.height * 3f;
 
         flashRT.anchorMin = new Vector2(0, 0.5f);
         flashRT.anchorMax = new Vector2(0, 0.5f);
         flashRT.pivot = new Vector2(0, 0.5f);
         flashRT.sizeDelta = new Vector2(flashWidth, flashHeight);
-
-        float currentHealth = slider.value;
-        float maxHealth = slider.maxValue;
-        float ratio = currentHealth / maxHealth;
-        float barWidth = fillAreaRT.rect.width;
-        float targetX = barWidth * ratio - flashWidth / 2f;
         flashRT.anchoredPosition = new Vector2(targetX, fillRT.anchoredPosition.y);
 
         fg.alpha = 1;
+
+        currentFlash = flash;
 
         CoroutineRunner runner = flash.GetComponent<CoroutineRunner>();
         if (runner == null)
@@ -194,6 +209,9 @@ public class UI_HealthBar : MonoBehaviour
 
             yield return null;
         }
+
+        if (currentFlash == flash)
+            currentFlash = null;
 
         Destroy(flash);
     }

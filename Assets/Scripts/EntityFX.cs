@@ -16,6 +16,10 @@ public class EntityFX : MonoBehaviour
     [SerializeField] private Color[] igniteColor;
     [SerializeField] private Color[] shockColor;
 
+    [Header("Bleed Particle")]
+    [SerializeField] private GameObject bleedParticlePrefab;
+    [SerializeField] private float bleedParticleInterval = 0.15f;
+
     private void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
@@ -79,6 +83,30 @@ public class EntityFX : MonoBehaviour
         Invoke("CancelColorChange", _seconds);
     }
 
+    public void BleedFxFor(float _seconds)
+    {
+        if (bleedParticlePrefab != null)
+        {
+            InvokeRepeating("SpawnBleedParticle", 0, bleedParticleInterval);
+            Invoke("CancelBleedParticle", _seconds);
+        }
+    }
+
+    private void SpawnBleedParticle()
+    {
+        if (bleedParticlePrefab == null)
+            return;
+
+        Vector3 spawnOffset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.3f, 0.3f), 0);
+        GameObject particle = Instantiate(bleedParticlePrefab, transform.position + spawnOffset, Quaternion.identity);
+        Destroy(particle, 1f);
+    }
+
+    private void CancelBleedParticle()
+    {
+        CancelInvoke("SpawnBleedParticle");
+    }
+
 
     private void IgniteColorFx()
     {
@@ -106,6 +134,5 @@ public class EntityFX : MonoBehaviour
             sr.color = shockColor[1];
     }
 
-   
-
+    
 }

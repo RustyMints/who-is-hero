@@ -13,7 +13,7 @@ public class ItemObject_Trigger : MonoBehaviour
             if (collision.GetComponent<CharacterStarts>().isDead)
                 return;
 
-            Debug.Log ("picked up item");
+            //Debug.Log ("picked up item");
             myItemObject.PickUpItem();
         }
 

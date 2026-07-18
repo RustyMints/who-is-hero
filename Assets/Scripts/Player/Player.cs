@@ -18,6 +18,10 @@ public class Player : Entity
     private float defaultMoveSpeed;
     private float defaultJumpForce;
 
+    [Header("Coyote Time")]
+    public float coyoteTime = 0.15f;
+    private float coyoteTimeCounter;
+
     [Header("Dashinfo")]
     public float dashSpeed;
     public float dashDuration;
@@ -127,6 +131,29 @@ public class Player : Entity
     public void AssignNewSword(GameObject _newSword)
     {
         sword = _newSword;
+    }
+
+    public void ResetCoyoteTime()
+    {
+        coyoteTimeCounter = coyoteTime;
+    }
+
+    public void UpdateCoyoteTime()
+    {
+        if (IsGroundDetected())
+            coyoteTimeCounter = coyoteTime;
+        else
+            coyoteTimeCounter -= Time.deltaTime;
+    }
+
+    public bool CanJumpWithCoyoteTime()
+    {
+        return coyoteTimeCounter > 0;
+    }
+
+    public void ConsumeCoyoteTime()
+    {
+        coyoteTimeCounter = 0;
     }
 
     public void CatchTheSword()

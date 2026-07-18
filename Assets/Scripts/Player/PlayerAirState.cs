@@ -25,11 +25,16 @@ public class PlayerAirState : PlayerState
     {
         base.Update();
 
+        player.UpdateCoyoteTime();
+
         if (player.IsWallDetected())
             stateMachine.changeState(player.wallSlide);
 
         if (player.IsGroundDetected())
             stateMachine.changeState(player.idleState);
+
+        if (Input.GetKeyDown(KeyCode.W) && player.CanJumpWithCoyoteTime())
+            stateMachine.changeState(player.jumpState);
 
         // 空中平滑移动控制
         if (xInput != 0)

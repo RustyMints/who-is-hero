@@ -15,6 +15,8 @@ public class PlayerCounterAttackState : PlayerState
         canCreateClone = true;
         stateTimer = player.counterAttackDuration;
         player.anim.SetBool("SuccessfulCounterAttack", false);
+
+        player.skill.parry.StartCooldown();
     }
 
     public override void Exit()
@@ -39,7 +41,7 @@ public class PlayerCounterAttackState : PlayerState
                     stateTimer = 10; //设置足够长的时间让动画播放完
                     player.anim.SetBool("SuccessfulCounterAttack", true);
 
-                    player.skill.parry.UseSkill(); //将用于招架时回复健康
+                    player.skill.parry.UseSkill();
 
                     if (canCreateClone)
                     {

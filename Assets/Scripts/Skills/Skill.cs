@@ -12,12 +12,18 @@ public class Skill : MonoBehaviour
     protected virtual void Start()
     {
         player = PlayerManager.instance.player;
+
+        CheckUnlock();
     }
     protected virtual void Update()
     {
         cooldowmTimer -= Time.deltaTime;
     }
+    
+    protected virtual void CheckUnlock()
+    {
 
+    }
     public virtual bool CanUseSkill()
     {
         if(cooldowmTimer < 0)
@@ -32,9 +38,19 @@ public class Skill : MonoBehaviour
         return false;
     }
 
+    public bool IsSkillReady()
+    {
+        return cooldowmTimer < 0;
+    }
+
+    public void StartCooldown()
+    {
+        cooldowmTimer = cooldown;
+    }
+
     public virtual void UseSkill()
     {
-        //做一些特定的事情
+        cooldowmTimer = cooldown;
     }
 
     protected virtual Transform FindClosestEnemy(Transform _checkTransform)

@@ -39,9 +39,15 @@ public class Clone_Skill : Skill
         multipleUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockMultClone);
         crystalInseadUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockCrystalInstead);
     }
-    
-    #region Ulock region
 
+    #region Ulock region
+    protected override void CheckUnlock()
+    {
+        UnlockCloneAttack();
+        UnlockAggresiveClone();
+        UnlockMultClone();
+        UnlockCrystalInstead();
+    }
     private void UnlockCloneAttack()
     {
         if (cloneAttaclUnlockButton.unlocked)

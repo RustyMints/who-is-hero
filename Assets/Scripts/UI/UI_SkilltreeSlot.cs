@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_SkilltreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
+public class UI_SkilltreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IsaveManager
 {
     private UI ui;
     private Image skillImage;
@@ -40,6 +40,8 @@ public class UI_SkilltreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
 
         skillImage.color = lockedSkillColor;
 
+        if(unlocked)
+            skillImage.color = Color.white;
     }
 
     public void unlockSkillSlot()
@@ -50,7 +52,7 @@ public class UI_SkilltreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
         {
             if (shouldBeUnlocked[i].unlocked == false)
             {
-                Debug.Log("无法解锁该技能");
+                Debug.Log("鏃犳硶瑙ｉ攣锛氬墠缃妧鑳芥湭瑙ｉ攣");
                 return;
             }
         }
@@ -59,7 +61,7 @@ public class UI_SkilltreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
         {
             if (shouldBeLocked[i].unlocked == true)
             {
-                Debug.Log("无法解锁该技能");
+                Debug.Log("鏃犳硶瑙ｉ攣锛氬墠缃妧鑳芥湭瑙ｉ攣");
                 return;
             }
         }
@@ -82,4 +84,23 @@ public class UI_SkilltreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
         ui.skillTooltip.HideToolTip();
     }
 
+    public void LoadData(GameData _data)
+    {
+        if(_data.skillTree.TryGetValue(skillName,out bool value))
+        {
+            unlocked = value;
+        }
+    }
+
+    public void SaveData(ref GameData _data)
+    {
+        if(_data.skillTree.TryGetValue(skillName,out bool value))
+        {
+            _data.skillTree.Remove(skillName);
+            _data.skillTree.Add(skillName, unlocked);
+        }
+
+        else
+            _data.skillTree.Add(skillName,unlocked);
+    }
 }

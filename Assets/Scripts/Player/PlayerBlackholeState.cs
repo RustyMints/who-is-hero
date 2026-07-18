@@ -52,8 +52,8 @@ public class PlayerBlackholeState : PlayerState
 
             if (!skillUsed)
             {
-                if(player.skill.blackhole.CanUseSkill())
-                    skillUsed = true;
+                player.skill.blackhole.UseSkill();
+                skillUsed = true;
             }
         }
         //如果黑洞技能完成则退出

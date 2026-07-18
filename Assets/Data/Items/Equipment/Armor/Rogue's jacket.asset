@@ -10,29 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 922c66db476bc4645b527f0e347511cd, type: 3}
-  m_Name: wooden_Sword
+  m_Name: Rogue's jacket
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: "\u6728\u5251"
-  itemicon: {fileID: 1025091068, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
-  dropChance: 32
-  equipmentType: 0
+  itemName: "\u76D7\u8D3C\u5916\u5957"
+  itemicon: {fileID: 957708663, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  dropChance: 0
+  equipmentType: 1
   itemCooldown: 0
-  itemEffects: []
+  itemEffects:
+  - {fileID: 11400000, guid: f713abdfb460d2f44ac28827cacc935c, type: 2}
   strength: 0
-  agility: 0
+  agility: 5
   intelligence: 0
   vitality: 0
-  damage: 4
+  damage: 0
   critChance: 0
   critPower: 0
-  health: 0
+  health: 50
   armor: 0
-  evasion: 3
+  evasion: 5
   magicResistance: 0
   fireDamage: 0
   iceDamage: 0
   lightingDamage: 0
   craftingMaterials:
+  - data: {fileID: 11400000, guid: 8c39051436fb2ef48ae8cf4766721614, type: 2}
+    stackSize: 4
   - data: {fileID: 11400000, guid: c67dabdbe2fbfea409facc5d08cfb886, type: 2}
-    stackSize: 1
+    stackSize: 6

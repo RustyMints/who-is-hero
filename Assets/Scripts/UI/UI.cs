@@ -17,7 +17,7 @@ public class UI : MonoBehaviour
 
     private void Awake()
     {
-        SwitchTo(skillTreeUI);//在我们分配技能槽位的事件之前，我们需要这些来分配技能事件脚本
+        SwitchTo(skillTreeUI);
     }
     void Start()
     {

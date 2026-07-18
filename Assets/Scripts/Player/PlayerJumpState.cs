@@ -14,6 +14,7 @@ public class PlayerJumpState : PlayerState
     {
         base.Enter();
 
+        player.ConsumeCoyoteTime();
         rb.velocity = new Vector2(rb.velocity.x, player.jumpForce);
     }
 

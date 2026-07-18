@@ -10,27 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 922c66db476bc4645b527f0e347511cd, type: 3}
-  m_Name: Plate amor
+  m_Name: Golden ring
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: "\u677F\u7532"
-  itemicon: {fileID: -1581127718, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
-  dropChance: 23
-  equipmentType: 1
+  itemName: "\u91D1\u8272\u6307\u73AF"
+  itemicon: {fileID: -878758905, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  dropChance: 0
+  equipmentType: 2
   itemCooldown: 0
   itemEffects: []
-  strength: 0
+  strength: 5
   agility: 0
   intelligence: 0
   vitality: 0
   damage: 0
   critChance: 0
   critPower: 0
-  health: 15
+  health: 10
   armor: 10
-  evasion: 0
-  magicResistance: 0
+  evasion: 5
+  magicResistance: 5
   fireDamage: 0
   iceDamage: 0
   lightingDamage: 0
-  craftingMaterials: []
+  craftingMaterials:
+  - data: {fileID: 11400000, guid: bf32a93c5c92ccd498fa41c827f7b775, type: 2}
+    stackSize: 4

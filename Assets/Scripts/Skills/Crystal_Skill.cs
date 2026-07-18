@@ -47,8 +47,17 @@ public class Crystal_Skill : Skill
 
     }
 
-    //����ˮ������
+    //解锁技能区域
     #region Unlock skill region
+
+    protected override void CheckUnlock()
+    {
+        UnlockCrystal();
+        UnlockCrystalMirage();
+        UnlockExplosiveCrystal();
+        unlockMoveingCrystal();
+        unlockMultiStack();
+    }
     private void UnlockCrystal()
     {
         if (unlockCrystalButton.unlocked)

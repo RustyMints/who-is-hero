@@ -50,16 +50,21 @@ public class CharacterStarts : MonoBehaviour
     public bool isIgnited; //是否处于【点燃】状态：持续每0.3秒造成火焰DoT伤害
     public bool isChilld;  //是否处于【冰冻/寒冷】状态：移速降低20%，护甲减伤仅80%
     public bool isShocked; //是否处于【触电】状态：闪避+20（自身命中下降），下次被雷电攻击触发连锁
+    public bool isBleeding; //是否处于【流血】状态：短时间内快速多次流失少量生命值
 
     [SerializeField] private float ailmentsDuration = 4; //元素异常状态总持续时间（秒）
     private float ignitedTimer;    //点燃状态剩余时间
     private float chilledTimer;    //寒冷状态剩余时间
     private float shockedTimer;    //触电状态剩余时间
+    private float bleedingTimer;   //流血状态剩余时间
 
 
     private float igniteDamageCoolDown = 0.3f; //点燃DoT的伤害触发间隔（秒）
     private float igniteDamageTimer;           //点燃DoT下一次触发的倒计时
     private int igniteDamage;                   //当前点燃每次触发的伤害值
+    private float bleedDamageCoolDown = 0.15f;  //流血DoT的伤害触发间隔（秒，比点燃更快）
+    private float bleedDamageTimer;             //流血DoT下一次触发的倒计时
+    private int bleedDamage;                    //当前流血每次触发的伤害值
     [SerializeField] private GameObject shockStrikePrefab; //雷电连锁时生成的雷击预制体
     private int shockDamgae;                    //连锁雷击造成的伤害（拼写：shockDamage）
     public int currentHealth;                   //当前生命值
@@ -85,8 +90,10 @@ public class CharacterStarts : MonoBehaviour
         ignitedTimer -= Time.deltaTime;
         chilledTimer -= Time.deltaTime;
         shockedTimer -= Time.deltaTime;
+        bleedingTimer -= Time.deltaTime;
 
         igniteDamageTimer -= Time.deltaTime;
+        bleedDamageTimer -= Time.deltaTime;
 
 
 
@@ -99,8 +106,14 @@ public class CharacterStarts : MonoBehaviour
         if (shockedTimer < 0)
             isShocked = false;
 
+        if (bleedingTimer < 0)
+            isBleeding = false;
+
         if(isIgnited)
             ApplyIgniteDamage();
+
+        if(isBleeding)
+            ApplyBleedDamage();
     }
 
     public void MakeVulnerableFor(float _duration) => StartCoroutine(vulnerableCorutine(_duration));
@@ -311,8 +324,30 @@ public class CharacterStarts : MonoBehaviour
         }
     }
 
+    private void ApplyBleedDamage()
+    {
+        if (bleedDamageTimer < 0)
+        {
+            DecreaseHealthBy(bleedDamage);
+
+            if (currentHealth < 0 && !isDead)
+                Die();
+
+            bleedDamageTimer = bleedDamageCoolDown;
+        }
+    }
+
     public void SetupIgniteDamage(int _damage) => igniteDamage = _damage;
     public void SetupShockStrikeDamage(int _damage) => shockDamgae = _damage;
+    public void SetupBleedDamage(int _damage) => bleedDamage = _damage;
+
+    public void ApplyBleed(float _duration)
+    {
+        isBleeding = true;
+        bleedingTimer = _duration;
+
+        fx.BleedFxFor(_duration);
+    }
 
     #endregion
 
