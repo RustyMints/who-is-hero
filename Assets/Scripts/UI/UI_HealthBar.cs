@@ -62,6 +62,7 @@ public class UI_HealthBar : MonoBehaviour
         if (chipPrefab == null) return;
         if (slider == null) return;
         if (slider.fillRect == null) return;
+        if (!gameObject.activeInHierarchy) return;
 
         GameObject chip = Instantiate(chipPrefab);
         Image img = chip.GetComponent<Image>();
@@ -133,6 +134,7 @@ public class UI_HealthBar : MonoBehaviour
         if (flashPrefab == null) return;
         if (slider == null) return;
         if (slider.fillRect == null) return;
+        if (!gameObject.activeInHierarchy) return;
 
         RectTransform fillRT = slider.fillRect;
         RectTransform fillAreaRT = fillRT.parent as RectTransform;

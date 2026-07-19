@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UI : MonoBehaviour
 {
+    [Header("End screen")]
+    [SerializeField] private UI_FadeScreen fadeScreen;
+    [SerializeField] private GameObject endText;
+    [SerializeField] private GameObject restartGameButton;
+    [Space]
+
     [SerializeField] private GameObject characterUI;
     [SerializeField] private GameObject skillTreeUI;
     [SerializeField] private GameObject craftUI;
@@ -18,6 +25,7 @@ public class UI : MonoBehaviour
     private void Awake()
     {
         SwitchTo(skillTreeUI);
+        fadeScreen.gameObject.SetActive(true);
     }
     void Start()
     {
@@ -45,9 +53,14 @@ public class UI : MonoBehaviour
 
     public void SwitchTo(GameObject _menu)
     {
+        
+
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).gameObject.SetActive(false);
+            bool fadeScreen = transform.GetChild(i).GetComponent<UI_FadeScreen>() != null;
+
+            if (fadeScreen == false)
+                transform.GetChild(i).gameObject.SetActive(false);
         }
 
         if(_menu != null)
@@ -70,10 +83,28 @@ public class UI : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            if(transform.GetChild(i).gameObject.activeSelf)
+            if(transform.GetChild(i).gameObject.activeSelf && transform.GetChild(i).GetComponent<UI_FadeScreen>() == null)
                 return;
         }
 
         SwitchTo(inGameUI);
     }
+
+    public void SwitchOnEndScreen()
+    {
+        
+        fadeScreen.FadeOut();
+        StartCoroutine(EndScreenCorutione());
+
+    }
+
+    IEnumerator EndScreenCorutione()
+    {
+        yield return new WaitForSeconds(1);
+        endText.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        restartGameButton.SetActive(true);
+    }
+
+    public void RestarGameButton() => GameManager.instance.RestarScene();
 }

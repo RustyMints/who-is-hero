@@ -31,6 +31,7 @@ public class PlayerItemDrop : itemDrop
             if (Random.Range(0, 100) <= chanceToLooseItems)
             {
                 DropItem(item.data);
+                RecordDroppedItem(item.data);
                 itemsToUnequip.Add(item);
             }
         }
@@ -47,6 +48,7 @@ public class PlayerItemDrop : itemDrop
             if(Random.Range(0, 100) <= chanceToLooseMaterials)
             {
                 DropItem(item.data);
+                RecordDroppedItem(item.data);
                 materulsToLoose.Add(item);
             }
         }
@@ -55,5 +57,11 @@ public class PlayerItemDrop : itemDrop
         {
             inventory.RemoveItem(materulsToLoose[i].data);
         }
+    }
+
+    private void RecordDroppedItem(ItemData _data)
+    {
+        if (_data == null) return;
+        SaveManager.RecordDroppedItem(_data.itemId, transform.position);
     }
 }

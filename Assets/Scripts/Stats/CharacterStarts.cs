@@ -157,9 +157,15 @@ public class CharacterStarts : MonoBehaviour
 
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
         _targetStats.TakeDamage(totalDamage);
-        //DomagicalDamage(_targetStats);
 
-        DomagicalDamage(_targetStats);
+        if (HasMagicalDamage())
+            DomagicalDamage(_targetStats);
+    }
+
+    private bool HasMagicalDamage()
+    {
+        return fireDamage.GetValue() > 0 || iceDamage.GetValue() > 0 ||
+               lightingDamage.GetValue() > 0 || intelligence.GetValue() > 0;
     }
 
 
@@ -421,6 +427,8 @@ public class CharacterStarts : MonoBehaviour
 
         if (isShocked)
             totalEvasion += 20;
+
+        totalEvasion = Mathf.Clamp(totalEvasion, 0, 80);
 
         if (Random.Range(0, 100) < totalEvasion)
         {

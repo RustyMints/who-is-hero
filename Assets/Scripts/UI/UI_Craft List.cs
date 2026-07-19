@@ -12,7 +12,7 @@ public class UI_CraftList : MonoBehaviour , IPointerDownHandler
 
     void Start()
     {
-        transform.parent.GetChild(0).GetComponent<UI_CraftList>().SetupCraftList();
+        SetupCraftList();
         setupDefaultCraftWindow();
     }
 
@@ -40,7 +40,7 @@ public class UI_CraftList : MonoBehaviour , IPointerDownHandler
 
     public void setupDefaultCraftWindow()
     {
-        if (craftEquipment[0] != null)
-            GetComponentInParent<UI>().craftWindow.SetupCraftWindow(craftEquipment[0]);
+        if (craftEquipment != null && craftEquipment.Count > 0 && craftEquipment[0] != null)
+            GetComponentInParent<UI>()?.craftWindow?.SetupCraftWindow(craftEquipment[0]);
     }
 }

@@ -92,35 +92,76 @@ public class Inventory : MonoBehaviour , IsaveManager
         else
             statSlot = new UI_StatSlot[0];
 
-        AddStartingItems();
+        ApplyLoadedOrStartingItems();
     }
 
-    private void AddStartingItems()
+    private void ApplyLoadedOrStartingItems()
     {
-        foreach(ItemData_Equipment item in loadEquipment)
-        {
-            EquipItem(item);
-        }
-        
+        bool hasSaveData = loadEquipment.Count > 0 || LoadedItems.Count > 0;
 
-        if(LoadedItems.Count > 0)
+        if (hasSaveData)
         {
-            foreach(InventoryItem item in LoadedItems)
+            foreach (ItemData_Equipment item in loadEquipment)
             {
-                for (int i = 0; i < item.stackSize; i++)
-                {
-                    AddItem(item.data);
-                }
+                if (item != null)
+                    EquipItem(item);
             }
 
-            return;
+            foreach (InventoryItem item in LoadedItems)
+            {
+                if (item?.data != null)
+                {
+                    for (int i = 0; i < item.stackSize; i++)
+                    {
+                        AddItem(item.data);
+                    }
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < StartingItems.Count; i++)
+            {
+                if (StartingItems[i] != null)
+                    AddItem(StartingItems[i]);
+            }
+        }
+    }
+
+    private void ClearAndReapplyEquipment()
+    {
+        if (equipmentDictionary != null)
+        {
+            var equippedItems = new List<ItemData_Equipment>(equipmentDictionary.Keys);
+            foreach (var item in equippedItems)
+            {
+                equipment.Remove(equipmentDictionary[item]);
+                equipmentDictionary.Remove(item);
+                item.RemoveModifiers();
+            }
         }
 
-        for (int i = 0; i < StartingItems.Count; i++)
-        {
-            if(StartingItems[i] != null)
-            AddItem(StartingItems[i]);
-        }
+        if (inventory != null) inventory.Clear();
+        if (inventoryDictiatiory != null) inventoryDictiatiory.Clear();
+        if (stash != null) stash.Clear();
+        if (stashDictianory != null) stashDictianory.Clear();
+
+        ApplyLoadedOrStartingItems();
+
+        RefreshPlayerHealth();
+    }
+
+    private void RefreshPlayerHealth()
+    {
+        if (PlayerManager.instance == null || PlayerManager.instance.player == null)
+            return;
+
+        CharacterStarts stats = PlayerManager.instance.player.starts;
+        if (stats == null)
+            return;
+
+        stats.currentHealth = stats.GetMaxHealthValue();
+        stats.onHealthChanged?.Invoke();
     }
 
     public void EquipItem(ItemData _item)
@@ -385,6 +426,9 @@ public class Inventory : MonoBehaviour , IsaveManager
 
     public void LoadData(GameData _data)
     {
+        LoadedItems.Clear();
+        loadEquipment.Clear();
+
         foreach(KeyValuePair<string,int> pair in _data.inventory)
         {
             foreach(var item in GetItemDataBase())
@@ -409,6 +453,9 @@ public class Inventory : MonoBehaviour , IsaveManager
                 }
             }
         }
+
+        if (equipmentDictionary != null)
+            ClearAndReapplyEquipment();
     }
 
     public void SaveData(ref GameData _data)
@@ -432,7 +479,7 @@ public class Inventory : MonoBehaviour , IsaveManager
         }
     }
 
-    private List<ItemData> GetItemDataBase()
+    public List<ItemData> GetItemDataBase()
     {
         List<ItemData> itemDataBase = new List<ItemData>();
         string[] assetName = AssetDatabase.FindAssets("", new[] { "Assets/Data/Items" });

@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,8 +17,12 @@ public class UI_InGame : MonoBehaviour
     [SerializeField] private Image blackholeImage;
     [SerializeField] private Image flaskImage;
 
-    [SerializeField] private TextMeshProUGUI currentSouls;
     private SkillManager skills;
+
+    [Header("Souls info")]
+    [SerializeField] private TextMeshProUGUI currentSouls;
+    [SerializeField] private float soulsAmount;
+    [SerializeField] private float increaseRate = 100;
 
     private float lastHealth;
     private GameObject currentFlash;
@@ -57,6 +62,7 @@ public class UI_InGame : MonoBehaviour
         if (chipPrefab == null) return;
         if (slider == null) return;
         if (slider.fillRect == null) return;
+        if (!gameObject.activeInHierarchy) return;
 
         GameObject chip = Instantiate(chipPrefab);
         Image img = chip.GetComponent<Image>();
@@ -128,6 +134,7 @@ public class UI_InGame : MonoBehaviour
         if (flashPrefab == null) return;
         if (slider == null) return;
         if (slider.fillRect == null) return;
+        if (!gameObject.activeInHierarchy) return;
 
         RectTransform fillRT = slider.fillRect;
         RectTransform fillAreaRT = fillRT.parent as RectTransform;
@@ -213,24 +220,24 @@ public class UI_InGame : MonoBehaviour
 
     void Update()
     {
-        currentSouls.text = PlayerManager.instance.GetCurrency().ToString("#,#");
+        UpdateSoulsUI();
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && skills.dash.dashUnlocked)
             SetCooldownOf(dashImage);
 
-        if(Input.GetKeyDown(KeyCode.Q) && skills.parry.parryUnlocked)
+        if (Input.GetKeyDown(KeyCode.Q) && skills.parry.parryUnlocked)
             SetCooldownOf(parryImage);
 
         if (Input.GetKeyDown(KeyCode.F) && skills.crystal.crystalUnlocked)
             SetCooldownOf(crystalImage);
 
-        if(Input.GetKeyDown(KeyCode.Mouse1) && skills.sword.swordUnlock)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && skills.sword.swordUnlock)
             SetCooldownOf(swordImage);
 
         if (Input.GetKeyDown(KeyCode.R) && skills.blackhole.blackholeUnlocked)
             SetCooldownOf(blackholeImage);
 
-        if(Input.GetKeyDown (KeyCode.Alpha1) && Inventory.instance.GetEquipment(EquipmentType.Flask) != null)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && Inventory.instance.GetEquipment(EquipmentType.Flask) != null)
             SetCooldownOf(flaskImage);
 
         CheckCooldownOf(dashImage, skills.dash.cooldown);
@@ -239,6 +246,17 @@ public class UI_InGame : MonoBehaviour
         CheckCooldownOf(swordImage, skills.sword.cooldown);
         CheckCooldownOf(blackholeImage, skills.blackhole.cooldown);
         CheckCooldownOf(flaskImage, Inventory.instance.flaskCooldown);
+    }
+
+    private void UpdateSoulsUI()
+    {
+        if (soulsAmount < PlayerManager.instance.GetCurrency())
+            soulsAmount += Time.deltaTime * increaseRate;
+
+        else
+            soulsAmount = PlayerManager.instance.GetCurrency();
+
+        currentSouls.text = ((int)soulsAmount).ToString();
     }
 
     private void SetCooldownOf(Image _image)

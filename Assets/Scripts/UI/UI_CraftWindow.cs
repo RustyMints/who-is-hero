@@ -16,6 +16,8 @@ public class UI_CraftWindow : MonoBehaviour
 
     public void SetupCraftWindow(ItemData_Equipment _data)
     {
+        if (_data == null)
+            return;
 
         craftButton.onClick.RemoveAllListeners();
 
@@ -25,22 +27,29 @@ public class UI_CraftWindow : MonoBehaviour
             materialImage[i].GetComponentInChildren<TextMeshProUGUI>().color = Color.clear;
         }
 
-        for (int i = 0; i < _data.craftingMaterials.Count; i++)
+        if (_data.craftingMaterials != null)
         {
-            if (_data.craftingMaterials.Count > materialImage.Length)
-                Debug.LogWarning("【制造窗口】配方材料数超过 UI 材料槽数量！请检查 materialImage 数组长度或装备 craftingMaterials 字段配置");
+            int count = Mathf.Min(_data.craftingMaterials.Count, materialImage.Length);
+            for (int i = 0; i < count; i++)
+            {
+                InventoryItem matItem = _data.craftingMaterials[i];
+                if (matItem != null && matItem.data != null && matItem.data.itemicon != null)
+                {
+                    materialImage[i].sprite = matItem.data.itemicon;
+                    materialImage[i].color = Color.white;
 
-            materialImage[i].sprite = _data.craftingMaterials[i].data.itemicon;
-            materialImage[i].color = Color.white;
-
-            TextMeshProUGUI materialSlotText = materialImage[i].GetComponentInChildren<TextMeshProUGUI>();
-
-            materialSlotText.text = _data.craftingMaterials[i].stackSize.ToString();
-            materialSlotText.color = Color.white;
-
+                    TextMeshProUGUI materialSlotText = materialImage[i].GetComponentInChildren<TextMeshProUGUI>();
+                    if (materialSlotText != null)
+                    {
+                        materialSlotText.text = matItem.stackSize.ToString();
+                        materialSlotText.color = Color.white;
+                    }
+                }
+            }
         }
 
-        itemIcon.sprite = _data.itemicon;
+        if (_data.itemicon != null)
+            itemIcon.sprite = _data.itemicon;
         itemName.text = _data.itemName;
         itemDescription.text = _data.GetDescription();
 

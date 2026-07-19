@@ -131,13 +131,16 @@ public class ItemData_Equipment : ItemData
         AddItemDescription(iceDamage, "冰霜伤害");
         AddItemDescription(lightingDamage, "雷电伤害");
 
-        for (int i = 0; i < itemEffects.Length; i++)
+        if (itemEffects != null)
         {
-            if (itemEffects[i].effectDescription.Length > 0)
+            for (int i = 0; i < itemEffects.Length; i++)
             {
-                sb.AppendLine();
-                sb.AppendLine("特殊效果: " + itemEffects[i].effectDescription);
-                DescriptionLength++;
+                if (itemEffects[i] != null && itemEffects[i].effectDescription != null && itemEffects[i].effectDescription.Length > 0)
+                {
+                    sb.AppendLine();
+                    sb.AppendLine("特殊效果: " + itemEffects[i].effectDescription);
+                    DescriptionLength++;
+                }
             }
         }
 

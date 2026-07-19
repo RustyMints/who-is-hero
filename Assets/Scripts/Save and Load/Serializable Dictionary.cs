@@ -29,7 +29,9 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
 
         for (int i = 0; i < keys.Count; i++)
         {
-            this.Add(keys[i], values[i]);
+            TKey key = keys[i];
+            if (!this.ContainsKey(key))
+                this.Add(key, values[i]);
         }
     }
 

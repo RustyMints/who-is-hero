@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerStats : CharacterStarts
 {
-    private Player player; 
+    private Player player;
+
+    [Header("Death penalty")]
+    [SerializeField][Range(0f, 1f)] private float minCurrencyLoss = 0.25f;
+    [SerializeField][Range(0f, 1f)] private float maxCurrencyLoss = 0.50f;
 
     protected override void Start()
     {
@@ -23,8 +27,15 @@ public class PlayerStats : CharacterStarts
     protected override void Die()
     {
         base.Die();
-
         player.Die();
+
+        float lossPercent = Random.Range(minCurrencyLoss, maxCurrencyLoss);
+        int lostAmount = Mathf.RoundToInt(PlayerManager.instance.currency * lossPercent);
+        if (lostAmount > 0)
+        {
+            GameManager.instance.lostCurremcyAmount = lostAmount;
+            PlayerManager.instance.currency -= lostAmount;
+        }
 
         GetComponent<PlayerItemDrop>()?.GenerateDrop();
     }

@@ -6,6 +6,7 @@ public class EnemyStats : CharacterStarts
 {
     private Enemy enemy;
     private itemDrop myDropSystem;
+    public Stat soulsDropAmout;
 
     [Header("Level details")]
     [SerializeField] private int level = 1;
@@ -15,6 +16,7 @@ public class EnemyStats : CharacterStarts
 
     protected override void Start()
     {
+        soulsDropAmout.SetDefaultValue(100);
         ApplyLevelModifiers();
 
         base.Start();
@@ -43,14 +45,16 @@ public class EnemyStats : CharacterStarts
         Modify(fireDamage);
         Modify(iceDamage);
         Modify(lightingDamage);
+
+        Modify(soulsDropAmout);
     }
 
     private void Modify(Stat _stat)
     {
+        int baseValue = _stat.GetValue();
         for (int i = 1; i < level; i++)
         {
-            float modifier = _stat.GetValue() * percantageModifier;
-
+            float modifier = baseValue * percantageModifier;
             _stat.AddModifier(Mathf.RoundToInt(modifier));
         }
     }
@@ -67,6 +71,7 @@ public class EnemyStats : CharacterStarts
         base.Die();
         enemy.Die();
 
+        PlayerManager.instance.currency += soulsDropAmout.GetValue();
         myDropSystem.GenerateDrop();
     }
 }

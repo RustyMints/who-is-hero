@@ -38,11 +38,16 @@ public class itemDrop : MonoBehaviour
 
     protected void DropItem(ItemData _itemData)
     {
+        DropItemAt(_itemData, transform.position);
+    }
+
+    protected void DropItemAt(ItemData _itemData, Vector2 _position)
+    {
         // ===== 修复：掉落物品空引用防护 =====
         if (dropPrefab == null || _itemData == null)
             return;
 
-        GameObject newDrop = Instantiate(dropPrefab, transform.position, Quaternion.identity);
+        GameObject newDrop = Instantiate(dropPrefab, _position, Quaternion.identity);
         if (newDrop == null)
             return;
 
@@ -51,6 +56,11 @@ public class itemDrop : MonoBehaviour
         ItemObject itemObj = newDrop.GetComponent<ItemObject>();
         if (itemObj != null)
             itemObj.SetupItem(_itemData, randomVelocity);
+    }
+
+    public void RespawnDropAtPosition(ItemData _itemData, Vector2 _position)
+    {
+        DropItemAt(_itemData, _position);
     }
 }
 
