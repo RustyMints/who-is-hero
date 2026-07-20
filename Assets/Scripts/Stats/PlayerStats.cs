@@ -44,6 +44,14 @@ public class PlayerStats : CharacterStarts
     {
         base.DecreaseHealthBy(_damage);
 
+        if(_damage > GetMaxHealthValue() * 0.3f)
+        {
+            player.SetupKnockbackPower(new Vector2(10,6));
+        }
+
+        int randomSound = Random.Range(24, 26);
+        AudioManager.instance.PlaySFX(randomSound, null);
+
         ItemData_Equipment currentArmor = Inventory.instance.GetEquipment(EquipmentType.Armor);
 
         if (currentArmor != null)

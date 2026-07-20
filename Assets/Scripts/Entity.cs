@@ -18,6 +18,7 @@ public class Entity : MonoBehaviour
     [SerializeField] protected Vector2 knockbackPower;
     [SerializeField] protected float knockbackDuration;
     protected bool isKnocked;
+    private Vector2 defaultKnockbackPower;
 
     [Header("Collision info")]
     public Transform attackCheck;
@@ -57,6 +58,8 @@ public class Entity : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         starts = GetComponent<CharacterStarts>();
         cd = GetComponent<CapsuleCollider2D>();
+
+        defaultKnockbackPower = knockbackPower;
     }
 
     protected virtual void Update()
@@ -73,6 +76,8 @@ public class Entity : MonoBehaviour
         else if(_damageDirection.position.x < transform.position.x)
             knockbackDir = 1;
     }
+
+    public void SetupKnockbackPower(Vector2 _knockbackpower) => knockbackPower =  _knockbackpower;
     protected virtual IEnumerator HitKnockback()
     {
         isKnocked = true;
@@ -81,6 +86,7 @@ public class Entity : MonoBehaviour
 
         yield return new WaitForSeconds(knockbackDuration);
         isKnocked = false;
+        knockbackPower = defaultKnockbackPower;
     }
 
     #region Velocity

@@ -363,6 +363,7 @@ public class CharacterStarts : MonoBehaviour
     {
         DecreaseHealthBy(_damage);
 
+
         GetComponent<Entity>().DamageImpact();
         fx.StartCoroutine("FlashFX");
 
