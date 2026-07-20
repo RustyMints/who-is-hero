@@ -21,7 +21,7 @@ public class SkillManager : MonoBehaviour
     private void Awake()
     {
         if (instance != null)
-            Destroy(instance.gameObject);
+            Destroy(gameObject);
         else
             instance = this;
     }
@@ -38,5 +38,16 @@ public class SkillManager : MonoBehaviour
         crystal = GetComponent<Crystal_Skill>(); //水晶
         parry = GetComponent<Parry_Skill>(); //招架，振刀
         dodge = GetComponent<Dodge_Skill>();//躲避
+    }
+
+    public void RefreshAllSkills()
+    {
+        if (dash != null) dash.CheckUnlock();
+        if (clone != null) clone.CheckUnlock();
+        if (sword != null) sword.CheckUnlock();
+        if (blackhole != null) blackhole.CheckUnlock();
+        if (crystal != null) crystal.CheckUnlock();
+        if (parry != null) parry.CheckUnlock();
+        if (dodge != null) dodge.CheckUnlock();
     }
 }

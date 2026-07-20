@@ -20,7 +20,7 @@ public class Skill : MonoBehaviour
         cooldowmTimer -= Time.deltaTime;
     }
     
-    protected virtual void CheckUnlock()
+    public virtual void CheckUnlock()
     {
 
     }

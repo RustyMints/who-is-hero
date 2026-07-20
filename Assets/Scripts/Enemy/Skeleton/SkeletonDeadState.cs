@@ -20,6 +20,8 @@ public class SkeletonDeadState : EnemyState
     {
         base.Enter();
 
+        AudioManager.instance.PlaySFX(5, enemy.transform);
+
         deathPosition = enemy.transform.position;
         enemy.cd.enabled = false;
         enemy.rb.isKinematic = true;

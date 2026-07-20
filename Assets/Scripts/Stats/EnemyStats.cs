@@ -8,6 +8,8 @@ public class EnemyStats : CharacterStarts
     private itemDrop myDropSystem;
     public Stat soulsDropAmout;
 
+    private int hurtSfxIndex = 16;
+
     [Header("Level details")]
     [SerializeField] private int level = 1;
 
@@ -63,7 +65,11 @@ public class EnemyStats : CharacterStarts
     {
         base.TakeDamage(_damage);
 
-        
+        hurtSfxIndex++;
+        if (hurtSfxIndex > 20)
+            hurtSfxIndex = 17;
+
+        AudioManager.instance.PlaySFX(hurtSfxIndex, transform);
     }
 
     protected override void Die()

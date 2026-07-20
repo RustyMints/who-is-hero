@@ -46,8 +46,9 @@ public class UI_SkilltreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
 
     public void unlockSkillSlot()
     {
+        if (unlocked)
+            return;
 
-        
         for (int i = 0; i < shouldBeUnlocked.Length; i++)
         {
             if (shouldBeUnlocked[i].unlocked == false)
@@ -71,6 +72,8 @@ public class UI_SkilltreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
 
         unlocked = true;
         skillImage.color = Color.white;
+        if (SkillManager.instance != null)
+            SkillManager.instance.RefreshAllSkills();
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -89,6 +92,8 @@ public class UI_SkilltreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
         if(_data.skillTree.TryGetValue(skillName,out bool value))
         {
             unlocked = value;
+            if (unlocked && skillImage != null)
+                skillImage.color = Color.white;
         }
     }
 

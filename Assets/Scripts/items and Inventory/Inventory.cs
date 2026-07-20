@@ -335,7 +335,6 @@ public class Inventory : MonoBehaviour , IsaveManager
 
     public bool CanCraft(ItemData_Equipment _itemToCraft,List<InventoryItem> _requiredMaterials)
     {
-        List<InventoryItem> materialsToRemove = new List<InventoryItem>();
         for (int i = 0; i < _requiredMaterials.Count; i++)
         {
             if (stashDictianory.TryGetValue(_requiredMaterials[i].data,out InventoryItem stashValue))
@@ -344,11 +343,6 @@ public class Inventory : MonoBehaviour , IsaveManager
                 {
                     Debug.Log("not enough materials");
                     return false;
-                }
-
-                else
-                {
-                    materialsToRemove.Add(stashValue);
                 }
 
             }
@@ -361,9 +355,12 @@ public class Inventory : MonoBehaviour , IsaveManager
 
         }
 
-        for (int i = 0; i < materialsToRemove.Count; i++)
+        for (int i = 0; i < _requiredMaterials.Count; i++)
         {
-            RemoveItem(materialsToRemove[i].data);
+            for (int j = 0; j < _requiredMaterials[i].stackSize; j++)
+            {
+                RemoveItem(_requiredMaterials[i].data);
+            }
         }
 
         AddItem(_itemToCraft);

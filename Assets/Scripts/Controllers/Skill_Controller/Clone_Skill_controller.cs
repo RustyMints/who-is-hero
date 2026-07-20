@@ -70,6 +70,9 @@ public class Clone_Skill_controller : MonoBehaviour
             if (hit.GetComponent<Enemy>() != null)
             {
                 //player.starts.DoDamage(hit.GetComponent<CharacterStarts>());
+
+                hit.GetComponent<Entity>().SetupKnockbackDir(transform);
+
                 PlayerStats playerStats = player.GetComponent<PlayerStats>();
                 EnemyStats enemyStats = hit.GetComponent<EnemyStats>();
 

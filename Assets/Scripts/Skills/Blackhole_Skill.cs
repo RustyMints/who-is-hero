@@ -39,6 +39,9 @@ public class Blackhole_Skill : Skill
         currentBlackhole = newBlackHole.GetComponent<Blackhole_Skill_Controller>();
 
         currentBlackhole.SetupBlackhole(maxSize, growSpeed, shrinkSpeed, amountOfAttacks, clonecooldown, blackholeDuration);
+
+        AudioManager.instance.PlaySFX(15, player.transform);
+        AudioManager.instance.PlaySFX(16, player.transform);
     }
 
     protected override void Start()
@@ -60,6 +63,8 @@ public class Blackhole_Skill : Skill
 
         if (currentBlackhole.playerCanExitState)
         {
+            AudioManager.instance.stopSFX(15);
+            AudioManager.instance.stopSFX(16);
             currentBlackhole = null;
             return true;
         }
@@ -72,7 +77,7 @@ public class Blackhole_Skill : Skill
         return maxSize / 2;
     }
 
-    protected override void CheckUnlock()
+    public override void CheckUnlock()
     {
         base.CheckUnlock();
 

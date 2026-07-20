@@ -50,7 +50,7 @@ public class Crystal_Skill : Skill
     //解锁技能区域
     #region Unlock skill region
 
-    protected override void CheckUnlock()
+    public override void CheckUnlock()
     {
         UnlockCrystal();
         UnlockCrystalMirage();

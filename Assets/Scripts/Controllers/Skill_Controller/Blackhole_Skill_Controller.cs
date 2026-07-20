@@ -107,9 +107,9 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             float xOffset;
 
             if (Random.Range(0, 100) > 50)
-                xOffset = 2;
+                xOffset = 0.75f;
             else
-                xOffset = -2;
+                xOffset = -0.75f;
 
 
             if (SkillManager.instance.clone.crystalInseadOfClone)
@@ -138,8 +138,8 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         DestroyHotKeys();
         playerCanExitState = true;
         canShrink = true;
-        
-        
+        AudioManager.instance.stopSFX(15);
+        AudioManager.instance.stopSFX(16);
     }
 
     private void DestroyHotKeys()
@@ -193,4 +193,10 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     }
 
     public void AddEnemyToList(Transform _enemyTransform) => targets.Add(_enemyTransform);
+
+    private void OnDestroy()
+    {
+        AudioManager.instance.stopSFX(15);
+        AudioManager.instance.stopSFX(16);
+    }
 }

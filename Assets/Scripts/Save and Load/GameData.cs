@@ -34,6 +34,8 @@ public class GameData
     public float lostCurrencyY;
     public int lostCurrencyAmount;
 
+    public SerializableDictionary<string, float> volumeSettings;
+
     public List<DroppedItemRecord> droppedItems;
 
     public GameData()
@@ -50,5 +52,7 @@ public class GameData
         closesCheckpointId = string.Empty;
         checkpoints = new SerializableDictionary<string, bool>();
         droppedItems = new List<DroppedItemRecord>();
+
+        volumeSettings = new SerializableDictionary<string, float>();
     }
 }

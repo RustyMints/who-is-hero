@@ -16,6 +16,9 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+
+        //AudioManager.instance.PlaySFX(2);
+
         xInput = 0; //这个修复确保攻击期间无法通过左右攻击来改变玩家朝向
 
         if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)

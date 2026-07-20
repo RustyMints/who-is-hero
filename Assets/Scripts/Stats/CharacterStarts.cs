@@ -148,6 +148,8 @@ public class CharacterStarts : MonoBehaviour
         if (TargetCanAvoidAttack(_targetStats))
             return;
 
+        _targetStats.GetComponent<Entity>().SetupKnockbackDir(transform);
+
         int totalDamage = damage.GetValue() + strength.GetValue();
 
         if (CanCrit())

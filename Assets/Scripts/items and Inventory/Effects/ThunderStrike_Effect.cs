@@ -22,6 +22,7 @@ public class ThunderStrike_Effect : ItemEffect
             return;
 
         GameObject newThunderStrike = Instantiate(thunderStrikePrefab, _enemyPosition.position, Quaternion.identity);
+        AudioManager.instance.PlaySFX(6, _enemyPosition);
         if (newThunderStrike != null)
         {
             // 延长销毁时间到 1.5 秒，让完整动画有时间播完

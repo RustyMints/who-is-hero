@@ -161,6 +161,9 @@ public class SaveManager : MonoBehaviour
         {
             saveManager.LoadData(gameData);
         }
+
+        if (SkillManager.instance != null)
+            SkillManager.instance.RefreshAllSkills();
     }
 
     public void SaveGame()
