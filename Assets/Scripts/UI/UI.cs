@@ -70,6 +70,14 @@ public class UI : MonoBehaviour, IsaveManager
                 AudioManager.instance.PlaySFX(21, null);
             _menu.SetActive(true);
         }
+
+        if(GameManager.instance != null)
+        {
+            if (_menu == inGameUI)
+                GameManager.instance.PauseGame(false);
+            else
+                GameManager.instance.PauseGame(true);
+        }
     }
 
     public void SwitchWithKeyTo(GameObject _menu)

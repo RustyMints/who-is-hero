@@ -71,7 +71,7 @@ public class CharacterStarts : MonoBehaviour
 
     public System.Action onHealthChanged;       //生命值变化回调事件（UI血量条订阅）
     public bool isDead { get; private set; }    //是否已死亡
-
+    public bool isInvicible { get; private set; }
     private bool isVulnerable;
 
     protected virtual void Start()
@@ -361,6 +361,9 @@ public class CharacterStarts : MonoBehaviour
 
     public virtual void TakeDamage(int _damage)
     {
+        if (isInvicible)
+            return;
+
         DecreaseHealthBy(_damage);
 
 
@@ -399,6 +402,14 @@ public class CharacterStarts : MonoBehaviour
     {
         isDead = true;
     }
+
+    public void KillEntity()
+    {
+        if (!isDead)
+            Die();
+    }
+
+    public void MakeInvencible(bool _invincible) => isInvicible = _invincible;
 
     #region Stat calculations
     protected int CheckTargetArmor(CharacterStarts _targetStats, int totalDamage)

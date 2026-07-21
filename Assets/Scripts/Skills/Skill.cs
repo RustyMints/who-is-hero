@@ -5,7 +5,7 @@ using UnityEngine;
 public class Skill : MonoBehaviour
 {
      public float cooldown;
-     protected float cooldowmTimer;
+     protected float cooldowmTimer = -1f;
 
     protected Player player;
 

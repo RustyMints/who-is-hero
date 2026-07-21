@@ -8,7 +8,11 @@ public class EnemyStats : CharacterStarts
     private itemDrop myDropSystem;
     public Stat soulsDropAmout;
 
-    private int hurtSfxIndex = 16;
+    private int hurtSfxIndex;
+
+    [Header("Hurt SFX")]
+    [SerializeField] private int hurtSfxMin = 17;
+    [SerializeField] private int hurtSfxMax = 20;
 
     [Header("Level details")]
     [SerializeField] private int level = 1;
@@ -26,6 +30,7 @@ public class EnemyStats : CharacterStarts
         enemy = GetComponent<Enemy>();
         myDropSystem = GetComponent<itemDrop>();
 
+        hurtSfxIndex = hurtSfxMin - 1;
     }
 
     private void ApplyLevelModifiers()
@@ -66,8 +71,8 @@ public class EnemyStats : CharacterStarts
         base.TakeDamage(_damage);
 
         hurtSfxIndex++;
-        if (hurtSfxIndex > 20)
-            hurtSfxIndex = 17;
+        if (hurtSfxIndex > hurtSfxMax)
+            hurtSfxIndex = hurtSfxMin;
 
         AudioManager.instance.PlaySFX(hurtSfxIndex, transform);
     }
@@ -79,5 +84,7 @@ public class EnemyStats : CharacterStarts
 
         PlayerManager.instance.currency += soulsDropAmout.GetValue();
         myDropSystem.GenerateDrop();
+
+        Destroy(gameObject, 5f);
     }
 }

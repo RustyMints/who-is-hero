@@ -30,7 +30,7 @@ public class Entity : MonoBehaviour
     [SerializeField] protected LayerMask whatIsground;
 
     public int knockbackDir {  get; private set; }
-    public int facingDir { get; private set; } = 1;
+    public int facingDir { get; protected set; } = 1;
     protected bool facingRight = true;
 
     public System.Action onFlipped;

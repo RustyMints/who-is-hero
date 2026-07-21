@@ -39,6 +39,7 @@ public class SaveManager : MonoBehaviour
         }
 
         instance = this;
+        transform.SetParent(null);
         DontDestroyOnLoad(gameObject);
         dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, encryptData);
     }
@@ -72,6 +73,9 @@ public class SaveManager : MonoBehaviour
         }
 
         yield return new WaitForEndOfFrame();
+
+        if (SkillManager.instance != null)
+            SkillManager.instance.RefreshAllSkills();
 
         RespawnDroppedItems();
     }

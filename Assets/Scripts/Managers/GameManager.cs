@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour, IsaveManager
         }
 
         instance = this;
+        transform.SetParent(null);
         DontDestroyOnLoad(gameObject);
         checkPoints = FindObjectsOfType<CheckPoint>();
     }
@@ -187,5 +188,13 @@ public class GameManager : MonoBehaviour, IsaveManager
         }
 
         return closestCheckpoint;
+    }
+
+    public void PauseGame(bool _pause)
+    {
+        if (_pause)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
     }
 }
