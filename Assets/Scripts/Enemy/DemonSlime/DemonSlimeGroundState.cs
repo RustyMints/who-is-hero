@@ -27,7 +27,7 @@ public class DemonSlimeGroundState : EnemyState
     {
         base.Update();
 
-        if (enemy.IsPlayerDetected() || Vector2.Distance(enemy.transform.position, player.position) < 5)
+        if (enemy.IsPlayerDetected() || Vector2.Distance(enemy.transform.position, player.position) < enemy.attackDistance * 0.8f)
             stateMachine.ChangeState(enemy.battleState);
     }
 }

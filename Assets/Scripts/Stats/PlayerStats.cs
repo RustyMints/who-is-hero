@@ -47,10 +47,12 @@ public class PlayerStats : CharacterStarts
         if(_damage > GetMaxHealthValue() * 0.3f)
         {
             player.SetupKnockbackPower(new Vector2(10,6));
+            player.fX.ScreenShake(player.fX.shakeHigeDamage);
+
+            int randomSound = Random.Range(24, 26);
+            AudioManager.instance.PlaySFX(randomSound, null);
         }
 
-        int randomSound = Random.Range(24, 26);
-        AudioManager.instance.PlaySFX(randomSound, null);
 
         ItemData_Equipment currentArmor = Inventory.instance.GetEquipment(EquipmentType.Armor);
 

@@ -310,6 +310,8 @@ MonoBehaviour:
   igniteFx: {fileID: 290338315479227765}
   ChillFX: {fileID: 1844283691617094237}
   ShockFX: {fileID: 3244636184566164670}
+  hitfx: {fileID: 8977646330006916729, guid: a563b7ba48b214e4abaedd20ca8c3653, type: 3}
+  criticalHitFX: {fileID: 3721008746359336486, guid: 54f1b867edd79b9409d9e6ca27099ad7, type: 3}
   bleedParticlePrefab: {fileID: 64510977568699571, guid: 1ce7398106f0b7e4597443e997cf7bfb, type: 3}
   bleedParticleInterval: 0.15
 --- !u!50 &270634776728586985
@@ -438,6 +440,8 @@ MonoBehaviour:
   soulsDropAmout:
     baseValue: 0
     modifiers: 
+  hurtSfxMin: 17
+  hurtSfxMax: 20
   level: 1
   percantageModifier: 0.4
 --- !u!114 &295903861776776819
@@ -580,7 +584,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.011229695, y: -0, z: -0, w: 0.99993694}
   m_LocalPosition: {x: 0.0642831, y: 1.4785715, z: -0.06428572}
-  m_LocalScale: {x: 0.71428573, y: 0.71428573, z: 0.71428573}
+  m_LocalScale: {x: 1, y: 0.71428573, z: 0.71428573}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 504613962323227091}
@@ -668,7 +672,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5410,7 +5414,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.02856936, y: 0.9857144, z: -0.06428572}
-  m_LocalScale: {x: 0.71428573, y: 0.71428573, z: 0.71428573}
+  m_LocalScale: {x: 1, y: 0.71428573, z: 0.71428573}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 504613962323227091}
@@ -5498,7 +5502,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -10276,7 +10280,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0.028572083, y: 0.7928571, z: -0.08571429}
-  m_LocalScale: {x: 0.71428573, y: 0.7142858, z: 0.7142858}
+  m_LocalScale: {x: 1, y: 0.7142858, z: 0.7142858}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 504613962323227091}
@@ -10364,7 +10368,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2

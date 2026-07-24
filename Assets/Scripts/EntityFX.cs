@@ -1,10 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine;
 public class EntityFX : MonoBehaviour
 {
+    private Player player;
     private SpriteRenderer sr;
+    [Header("Screen shake FX")]
+    private CinemachineImpulseSource screenShake;
+    [SerializeField] private float shakeMultiplier;
+    public Vector3 shakeSwordImpact;
+    public Vector3 shakeHigeDamage;
+
+    [Header("After image fx")]
+    [SerializeField] private GameObject afterImagePrefab;
+    [SerializeField] private float colorLooseRate;
+    [SerializeField] private float afterImageCooldown;
+    private float afterImageCooldownTimer;
 
     [Header("Flash FX")]
     [SerializeField] private float flashDuration;
@@ -21,15 +33,46 @@ public class EntityFX : MonoBehaviour
     [SerializeField] private ParticleSystem ChillFX;
     [SerializeField] private ParticleSystem ShockFX;
 
+    [Header("Hit FX")]
+    [SerializeField] private GameObject hitfx;
+    [SerializeField] private GameObject criticalHitFX;
+
     [Header("Bleed Particle")]
     [SerializeField] private GameObject bleedParticlePrefab;
     [SerializeField] private float bleedParticleInterval = 0.15f;
 
+    [Space]
+    [SerializeField] private ParticleSystem dustFX;
+
     private void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
+        player = PlayerManager.instance.player;
+        screenShake = GetComponent<CinemachineImpulseSource>();
         originalMat = sr.material;
 
+    }
+
+    private void Update()
+    {
+        afterImageCooldownTimer -= Time.deltaTime;
+    }
+
+    public void ScreenShake(Vector3 _shakePower)
+    {
+        screenShake.m_DefaultVelocity = new Vector3(_shakePower.x * player.facingDir,_shakePower.y) * shakeMultiplier;
+        screenShake.GenerateImpulse();
+    }
+
+    public void CreateAfterImage()
+    {
+        if (afterImageCooldownTimer < 0)
+        {
+            afterImageCooldownTimer = afterImageCooldown;
+
+            GameObject newAfterImage = Instantiate(afterImagePrefab, transform.position, transform.rotation);
+            newAfterImage.GetComponent<AfterImageFX>().SetupAfterImage(colorLooseRate, sr.sprite);
+        }
     }
 
     public void MakeTransprent(bool _transprent)
@@ -50,8 +93,6 @@ public class EntityFX : MonoBehaviour
 
         sr.color = currentColor;
         sr.material = originalMat;
-
-
     }
 
     private void RedColorBlink()
@@ -150,4 +191,43 @@ public class EntityFX : MonoBehaviour
     }
 
     
+    public void CreateHitFX(Transform _target,bool _cirtical)
+    {
+
+        float zRotation = Random.Range(-90, 90);
+        float xPotation = Random.Range(-0.5f, 0.5f);
+        float yPotation = Random.Range(-0.5f, 0.5f);
+
+        Vector3 hitFxRotation = new Vector3(0, 0, zRotation);
+
+        GameObject hitPrefab = hitfx;
+
+        if (_cirtical)
+        {
+            hitPrefab = criticalHitFX;
+
+            float yRoation = 0;
+            zRotation = Random.Range(-45, 45);
+
+            if (GetComponent<Entity>().facingDir == -1)
+                yRoation = 100;
+
+            hitFxRotation = new Vector3(0,yRoation,zRotation);
+        }
+
+        GameObject newHitFX = Instantiate(hitPrefab, _target.position + new Vector3(xPotation, yPotation), Quaternion.identity);// _target); 打击特效追随目标
+
+        newHitFX.transform.Rotate(hitFxRotation);
+
+        Destroy(newHitFX, 0.5f);
+        
+    }
+
+    public void PlayerDustFX()
+    {
+        if(dustFX != null)
+            dustFX.Play();
+        
+        
+    }
 }

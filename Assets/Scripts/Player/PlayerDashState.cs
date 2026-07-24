@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerDashState : PlayerState
 {
+    
+
     public PlayerDashState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
 
@@ -16,6 +18,7 @@ public class PlayerDashState : PlayerState
         player.skill.dash.CloneOnDash();
 
         stateTimer = player.dashDuration;
+
 
         player.starts.MakeInvencible(true);
     }
@@ -41,5 +44,7 @@ public class PlayerDashState : PlayerState
 
         if (stateTimer < 0)
             stateMachine.changeState(player.idleState);
+
+        player.fX.CreateAfterImage();
     }
 }

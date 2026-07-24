@@ -282,19 +282,22 @@ MonoBehaviour:
   flashDuration: 0.2
   hitMat: {fileID: 2100000, guid: 1b17ce9ea3722b0499e5b3c8fa43df82, type: 2}
   chillColor:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.19607843, g: 0.5882353, b: 1, a: 0}
+  - {r: 0.19607843, g: 0.5882353, b: 1, a: 0}
   igniteColor:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.9647059, g: 0.2627451, b: 0.21960784, a: 0}
+  - {r: 0.9411765, g: 0.7058824, b: 0.6156863, a: 0}
   shockColor:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.9529412, g: 0.972549, b: 0.63529414, a: 0}
+  - {r: 0.95686275, g: 1, b: 0.2627451, a: 0}
   igniteFx: {fileID: 8674051294152280447}
   ChillFX: {fileID: 8179618285964533191}
   ShockFX: {fileID: 2903526673694880906}
+  hitfx: {fileID: 8977646330006916729, guid: a563b7ba48b214e4abaedd20ca8c3653, type: 3}
+  criticalHitFX: {fileID: 3721008746359336486, guid: 54f1b867edd79b9409d9e6ca27099ad7, type: 3}
   bleedParticlePrefab: {fileID: 64510977568699571, guid: 1ce7398106f0b7e4597443e997cf7bfb, type: 3}
   bleedParticleInterval: 0.15
+  dustFX: {fileID: 0}
 --- !u!1 &1025746794112695652
 GameObject:
   m_ObjectHideFlags: 0

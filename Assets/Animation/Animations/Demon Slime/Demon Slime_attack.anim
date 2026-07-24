@@ -27,14 +27,18 @@ AnimationClip:
     - time: 0.2
       value: {fileID: -1298764001, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
     - time: 0.3
-      value: {fileID: -1605801470, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
+      value: {fileID: -451136796, guid: 8bce776a3c9661246aa17f9fe9d4db85, type: 3}
     - time: 0.4
-      value: {fileID: -2059224379, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
+      value: {fileID: -192017126, guid: 8bce776a3c9661246aa17f9fe9d4db85, type: 3}
     - time: 0.5
-      value: {fileID: 1533940679, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
+      value: {fileID: -699376615, guid: 8bce776a3c9661246aa17f9fe9d4db85, type: 3}
     - time: 0.6
-      value: {fileID: -1806433979, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
+      value: {fileID: 1195614379, guid: 8bce776a3c9661246aa17f9fe9d4db85, type: 3}
     - time: 0.7
+      value: {fileID: -2120105468, guid: 8bce776a3c9661246aa17f9fe9d4db85, type: 3}
+    - time: 0.8
+      value: {fileID: -1194246404, guid: 8bce776a3c9661246aa17f9fe9d4db85, type: 3}
+    - time: 0.9
       value: {fileID: -2059224379, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
     attribute: m_Sprite
     path: 
@@ -61,17 +65,19 @@ AnimationClip:
     - {fileID: -2059224379, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
     - {fileID: 911073499, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
     - {fileID: -1298764001, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
-    - {fileID: -1605801470, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
-    - {fileID: -2059224379, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
-    - {fileID: 1533940679, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
-    - {fileID: -1806433979, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
+    - {fileID: -451136796, guid: 8bce776a3c9661246aa17f9fe9d4db85, type: 3}
+    - {fileID: -192017126, guid: 8bce776a3c9661246aa17f9fe9d4db85, type: 3}
+    - {fileID: -699376615, guid: 8bce776a3c9661246aa17f9fe9d4db85, type: 3}
+    - {fileID: 1195614379, guid: 8bce776a3c9661246aa17f9fe9d4db85, type: 3}
+    - {fileID: -2120105468, guid: 8bce776a3c9661246aa17f9fe9d4db85, type: 3}
+    - {fileID: -1194246404, guid: 8bce776a3c9661246aa17f9fe9d4db85, type: 3}
     - {fileID: -2059224379, guid: 8a30e656f1fe764419a24a1a955e0220, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.8
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -91,28 +97,28 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.3
+  - time: 0.5
     functionName: OpenCounterWindow
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.7
     functionName: AttackTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.7
     functionName: CloseCounterWindow
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.7
+  - time: 0.9
     functionName: AnimationTrigger
     data: 
     objectReferenceParameter: {fileID: 0}

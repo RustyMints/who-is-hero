@@ -18,8 +18,10 @@ public class ItemData_Equipment : ItemData
     [Header("Unique effect")]
     public float itemCooldown;
     public ItemEffect[] itemEffects;
-    
-    
+
+    [Header("Custom Description")]
+    [TextArea]
+    public string customDescription;
 
 
     [Header("Major stats")]         // 主要属性 - 影响角色基础能力
@@ -142,6 +144,13 @@ public class ItemData_Equipment : ItemData
                     DescriptionLength++;
                 }
             }
+        }
+
+        if (!string.IsNullOrEmpty(customDescription))
+        {
+            sb.AppendLine();
+            sb.AppendLine("<i><color=#888888>" + customDescription + "</color></i>");
+            DescriptionLength++;
         }
 
         if (DescriptionLength < 5)
